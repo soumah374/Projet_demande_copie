@@ -33,7 +33,7 @@
                             @foreach($demande as $key=> $demand)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{substr($demand->created_at, 0, 10)}}</td>
+                                <td>{{substr($demand->created_at,0,10)}}</td>
                                 <td>{{$demand->prenom}}</td>
                                 <td>{{$demand->nom}}</td>
                                 <td>{{$demand->type_demande}}</td>

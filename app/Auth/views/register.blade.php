@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -25,7 +24,7 @@
         <h1>Nom Entreprise</h1>
       </div>
       <div class="login-boxn" >
-        <form  class="login-form" action="#"  method="POST">
+        <form  class="login-form" action="{{route('register')}}"  method="POST">
             @csrf
           <h3 class="login-head">INSCRIPTION</h3>
           <div class="form-group">
@@ -42,10 +41,6 @@
           </div>
           <div class="form-group">
             <label class="control-label">MOT DE PASSE</label>
-            <input class="form-control" type="password" name="password">
-          </div>
-          <div class="form-group">
-            <label class="control-label">CONFIRME MOT DE PASSE</label>
             <input class="form-control" type="password" name="password">
           </div>
           <div class="form-group btn-container">

@@ -20,14 +20,14 @@ class RoleSeeder extends Seeder
         Role::create([
             'name'=>'boursier'
         ]);
-        
+
         Role::create([
             'name'=>'assistant'
         ]);
         $users=User::create([
             'email'=>'admin@gmail.com',
-            'telephone'=>'620000000',
-            'password'=>bcrypt(1234)
+            'password'=>bcrypt(1234),
+            'statuts'=>'1'
         ]);
         $users->attachRole('admin');
     }
