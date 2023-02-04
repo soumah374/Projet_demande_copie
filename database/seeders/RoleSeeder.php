@@ -25,7 +25,9 @@ class RoleSeeder extends Seeder
             'name'=>'assistant'
         ]);
         $users=User::create([
-            'email'=>'admin@gmail.com',
+            'email'=>'admin@admin.com',
+            'name'=>'admin',
+            'prenom'=>'admin',
             'password'=>bcrypt(1234),
             'statuts'=>'1'
         ]);
