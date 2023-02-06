@@ -70,4 +70,5 @@ Route::group(["namespace" => "Auth"], function(){
     Route::get('/logout',[AuthController::class,'logout'])->name('logout')->middleware("auth");
     Route::get('/profile',[FrontedController::class,'file'])->name('profile')->middleware("auth");
     Route::post('/createdemande/{id}', [AuthController::class, 'create_demande'])->name("create_demande")->middleware("auth");
+    Route::get('/adddemande',[AuthController::class,'adddemande'])->name('adddemande');
 });
