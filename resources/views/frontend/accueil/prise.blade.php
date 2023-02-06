@@ -19,7 +19,7 @@
         <li><span class="fa fa-check mr-2"></span>Creative Marketing</li>
         <li><span class="fa fa-check mr-2"></span>Sales Management</li>
         </ul>
-        <a href="#" class="btn btn-primary d-block px-2 py-3">Commencer</a>
+        <a href="{{route('login')}}" class="btn btn-primary d-block px-2 py-3">Demande</a>
         </div>
         </div>
         </div>
@@ -35,7 +35,7 @@
         <li><span class="fa fa-check mr-2"></span>Creative Marketing</li>
         <li><span class="fa fa-check mr-2"></span>Sales Management</li>
         </ul>
-        <a href="#" class="btn btn-primary d-block px-2 py-3">Commencer</a>
+        <a href="{{route('login')}}" class="btn btn-primary d-block px-2 py-3">Demande</a>
         </div>
         </div>
         </div>
@@ -51,7 +51,7 @@
         <li><span class="fa fa-check mr-2"></span>Creative Marketing</li>
         <li><span class="fa fa-check mr-2"></span>Sales Management</li>
         </ul>
-        <a href="#" class="btn btn-primary d-block px-2 py-3">Commencer</a>
+        <a href="{{route('login')}}" class="btn btn-primary d-block px-2 py-3">Demande</a>
         </div>
         </div>
         </div>

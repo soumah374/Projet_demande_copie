@@ -20,13 +20,13 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="javascript:">
                                 <i class="fa fa-desktop text-primary"></i>
-                                <span class="nav-link-text">Dashboard</span>
+                                <span class="nav-link-text">Tableau de bord</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:">
-                                <i class="fa fa-lock text-danger"></i>
-                                <span class="nav-link-text">Login</span>
+                            <a href="#" class="nav-link" href="javascript:">
+                                <i class="fa fa-folder text-danger"></i>
+                                <span class="nav-link-text">Mes Demandes</span>
                             </a>
                         </li>
                     </ul>
@@ -34,22 +34,9 @@
             </div>
         </nav>
         <div class="main-content" id="panel">
-            <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom bg-warning" id="navbarTop">
+            <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom " id="navbarTop" style="background-color: #078a36" >
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <form class="navbar-search navbar-search-light form-inline mr-sm-3 mb-0" id="navbar-search-main">
-                            <div class="form-group mb-0">
-                                <div class="input-group input-group-alternative input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Search" type="text">
-                                </div>
-                            </div>
-                            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </form>
                         <ul class="navbar-nav align-items-center  ml-md-auto ">
                             <li class="nav-item d-xl-none">
                                 <div class="pr-3 sidenav-toggler sidenav-toggler-dark active" data-action="sidenav-pin" data-target="#sidenav-main">
@@ -74,7 +61,7 @@
                                             <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg">
                                         </span>
                                         <div class="media-body  ml-2  d-none d-lg-block">
-                                            <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                                            <span class="mb-0 text-sm  font-weight-bold">{{Auth::user()->prenom }} {{Auth::user()->name}}</span>
                                         </div>
                                     </div>
                                 </a>
@@ -82,12 +69,12 @@
                                     <div class="dropdown-header noti-title">
                                         <h6 class="text-overflow m-0">Welcome!</h6>
                                     </div>
-                                    <a href="#!" class="dropdown-item">
+                                    <a href="" class="dropdown-item">
                                         <i class="fa fa-user"></i>
                                         <span>My profile</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#!" class="dropdown-item">
+                                    <a href="{{route('logout')}}" class="dropdown-item">
                                         <i class="fa fa-sign-out-alt"></i>
                                         <span>Logout</span>
                                     </a>
@@ -98,44 +85,92 @@
                 </div>
             </nav>
             <div class="container-fluid pt-3">
-                <div class="row removable">
-                    <div class="col-lg-4">
-                        <div class="card card-profile">
-                            <img src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-3 order-lg-2">
-                                    <div class="card-profile-image">
-                                        <a href="#">
-                                            <img src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg" class="rounded-circle">
-                                        </a>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Faire une demande</button>
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Formulaire de demande</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('create_demande',Auth::user()->id)}}" method="post" >
+                                                @csrf
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>Nom*</label>
+                                                        <input type="text" value="{{Auth::user()->name}}" readonly name="name" class="form-control  @error('name') is-invalid @enderror" >
+                                                        @error('name')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Prenom*</label>
+                                                        <input type="text" value="{{Auth::user()->prenom}}" readonly name="prenom" class="form-control  @error('prenom') is-invalid @enderror">
+                                                        @error('prenom')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Nom Père*</label>
+                                                        <input type="text" value="" name="name_pere" class="form-control  @error('name_pere') is-invalid @enderror">
+                                                        @error('name_pere')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Nom Mere*</label>
+                                                        <input type="text" value="" name="name_mere" class="form-control  @error('name_mere') is-invalid @enderror">
+                                                        @error('name_mere')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Email*</label>
+                                                        <input type="email" value="{{Auth::user()->email}}" readonly name="email" class="form-control  @error('email') is-invalid @enderror">
+                                                        @error('email')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Date de Naissance*</label>
+                                                        <input type="text" value="" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
+                                                        @error('date_naissance')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Lieu Naissance*</label>
+                                                        <input type="text" value="" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
+                                                        @error('lieu_naissance')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="from-group col-md-6">
+                                                        <label for="genre">Genre*</label>
+                                                        <select class="form-control" name="genre" id="genre">
+                                                            <option value="masculin">Masculin</option>
+                                                            <option value="feminin">Feminin</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="from-group col-md-12">
+                                                        <label for="type_demande">Type de demande</label>
+                                                        <select class="form-control" name="type_demande" id="type_demande">
+                                                            <option value="laisser-passer">Laisser passer</option>
+                                                            <option value="atestation">Atestation</option>
+                                                            <option value="carte">Carte</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Photo*</label>
+                                                        <input type="file" value="" name="images" class="form-control @error('image') is-invalid @enderror">
+                                                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Photo Signature*</label>
+                                                        <input type="file" value="" name="image_signature" class="form-control @error('image_signature') is-invalid @enderror">
+                                                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                                <div class="d-flex justify-content-between">
-                                    <a href="#" class="btn btn-sm mr-4 btn-default">Modifier</a>
-                                    <a href="#" class="btn btn-sm float-right btn-warning">Message</a>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="text-center">
-                                    <h5 class="h3">
-                                        Jessica Jones<span class="font-weight-light">, 27</span>
-                                    </h5>
-                                    <h5 class="font-weight-300">
-                                        Bucharest, Romania
-                                    </h5>
-                                    <h5 class="h5 mt-4">
-                                        Solution Manager - Creative Tim Officer
-                                    </h5>
-                                    <h5>
-                                        University of Computer Science
-                                    </h5>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                <div class="row m-5">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="row align-items-center">
@@ -233,6 +268,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

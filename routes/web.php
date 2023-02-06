@@ -21,7 +21,6 @@ use App\Http\Controllers\MailController;
 |
 */
 Route::get('/mail/{id}', [MailController::class, 'index'])->name('mailing');
-Route::get('/register',[UtilisateurController::class, 'inscription'])->name('register.incription');
 
 
 
@@ -38,7 +37,6 @@ Route::group(["namespace" => "front"], function(){
 
 Route::group(["namespace" => "admins"], function(){
     Route::get('/dashboard', [DashbordController::class, 'index'])->name("dashbord.index")->middleware("auth");
-    Route::get('/profile',[FrontedController::class,'file'])->name('profile')->middleware("auth");
 
     Route::get('/nouveaux', [DemandeController::class, 'index'])->name("admins.demande")->middleware("auth");
     Route::get('/traiter', [DemandeController::class, 'index'])->name("admins.demande.liste")->middleware("auth");
@@ -61,5 +59,9 @@ Route::group(["namespace" => "admins"], function(){
 Route::group(["namespace" => "Auth"], function(){
     Route::get('/authentification', [AuthController::class, 'loginForm'])->name("login")->middleware("guest");
     Route::post('/authentification',[AuthController::class,'login'])->name('login');
+    Route::get('/register',[UtilisateurController::class, 'inscription'])->name('register.incription');
+    Route::post('/register',[AuthController::class,'create'])->name('register');
     Route::get('/logout',[AuthController::class,'logout'])->name('logout')->middleware("auth");
+    Route::get('/profile',[FrontedController::class,'file'])->name('profile')->middleware("auth");
+    Route::post('/createdemande/{id}', [AuthController::class, 'create_demande'])->name("create_demande")->middleware("auth");
 });
