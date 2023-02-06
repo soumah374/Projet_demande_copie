@@ -13,6 +13,7 @@ class FrontedController extends Controller
     public function file(){
         return view('Auth::profile');
     }
+    
 
     public function index(){
         return view('frontend.accueil.index');

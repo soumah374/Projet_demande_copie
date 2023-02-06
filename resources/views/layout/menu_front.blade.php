@@ -36,7 +36,16 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item active"><a class="nav-link" href="{{route('front.index')}}">Accueil</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Connexion</a></li>
+                                @if (Auth::user())
+                                     @if (Auth::user()->statuts==0)
+                                            <li class="nav-item"><a class="nav-link" href="{{route('profile')}}">Profil</a></li>
+                                     @else
+                                            <li class="nav-item"><a class="nav-link" href="{{route('dashbord.index')}}">Administration</a></li>
+                                    @endif
+                                @else
+                                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Connexion</a></li>
+                                @endif
+
                             </ul>
                         </div>
                     </div>
