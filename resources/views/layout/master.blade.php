@@ -20,7 +20,7 @@
         <div class="preloader"></div>
     </div>
     <!-- Navbar-->
-    <header class="app-header" ><a class="app-header__logo" style="background-color: #078a36;" href="{{route('dashbord.index')}}">DEM A C</a>
+    <header class="app-header" ><a class="app-header__logo" style="background-color: #078a36;" href="{{route('dashbord.index')}}">ADMINISTRATION</a>
         <!-- Sidebar toggle button-->
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
         <!-- Navbar Right Menu-->

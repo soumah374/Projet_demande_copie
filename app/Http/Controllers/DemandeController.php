@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Demande;
 use App\Http\Controllers\NotificationController;
 
 class DemandeController extends Controller
@@ -16,14 +17,14 @@ class DemandeController extends Controller
     public function index()
     {
         $demandeNotif=new NotificationController();
-        $count_demande=$demandeNotif->compteDemande();
-        $demande=User::where('demande',1)->where('actifs',0)->orderBy('id','DESC')->get();
+        $count_demande=0;//$demandeNotif->compteDemande();
+        $demande=Demande::orderBy('id','DESC')->get();
         return view('admin.demande.index',compact('demande','count_demande'));
     }
     public function liste(){
-        $demandeNotif=new NotificationController();
-        $count_demande=$demandeNotif->compteDemande();
-        $demande=User::where('demande',1)->where('actifs',1)->orderBy('id','DESC')->get();
+        $demandeNotif = new NotificationController();
+        $count_demande = 0; //$demandeNotif->compteDemande();
+        $demande = Demande::orderBy('id','DESC')->get();
         return view('admin.demande.liste',compact('demande','count_demande'));
     }
 
@@ -56,9 +57,9 @@ class DemandeController extends Controller
      */
     public function show($id)
     {
-        $demande=User::where('demande',1)->where('id',$id)->first();
-        $demandeNotif=new NotificationController();
-        $count_demande=$demandeNotif->compteDemande();
+        $demande = Demande::find($id);
+        $demandeNotif = new NotificationController();
+        $count_demande = 0; //$demandeNotif->compteDemande();
 
         if($demande)
         {

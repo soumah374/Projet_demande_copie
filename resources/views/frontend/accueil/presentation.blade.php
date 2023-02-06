@@ -11,8 +11,8 @@
     </div>
     <div class="services-2 w-100 d-flex">
         <div class="text pl-4">
-        <h4>Market Analysis</h4>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+        <h4>Etape à suivre</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis doloremque similique perspiciatis excepturi ducimus sint, eum sed officiis quaerat a esse cum obcaecati, facere eveniet inventore blanditiis quas, dolorem quo! Pariatur perspiciatis vel, ducimus temporibus modi quos veritatis necessitatibus tempora ratione, doloribus quaerat numquam nam odio architecto, excepturi officia quisquam?</p>
         </div>
         </div>
     </div>

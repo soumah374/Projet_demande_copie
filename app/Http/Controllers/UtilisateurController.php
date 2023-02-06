@@ -18,7 +18,7 @@ class UtilisateurController extends Controller
     public function store(Request $request){
         $validation = Validator::make($request->all(),[
             'name' => 'bail|required|min:3',
-            'contact' => 'bail|required',
+            'prenom' => 'bail|required',
             'email' => 'bail|required|email|max:255|unique:users',
             'password' => 'bail|required',
         ]);
@@ -28,7 +28,7 @@ class UtilisateurController extends Controller
         else{
             $user = new User();
             $user->name=$request->name;
-            $user->telephone=$request->contact;
+            $user->prenom=$request->prenom;
             $user->email=$request->email;
             $user->avatar="avatar.jpg";
             $user->password=bcrypt($request->password);

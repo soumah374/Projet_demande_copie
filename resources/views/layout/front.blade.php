@@ -27,7 +27,6 @@
         <link rel="stylesheet" href="{{asset('front/assets/css/dark-style.css')}}">
         <link href="{{asset('front/revolution/css/settings.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{asset('preloader/preloader.css')}}">
-
         <link rel="stylesheet" href="{{asset('front/assets/css/flaticon.css')}}">
         @toastr_css
         <title>Nom Entreprise</title>
