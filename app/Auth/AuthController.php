@@ -139,5 +139,7 @@ class AuthController extends Controller
         }
     }
 
-
+    public function adddemande(){
+        return view('Auth::demande');
+    }
 }

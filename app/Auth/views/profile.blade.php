@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="{{asset('theme.css')}}">
         <link rel="stylesheet" href="{{asset('loopple.css')}}">
     </head>
-
     <body>
         <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white loopple-fixed-start" id="sidenav-main">
             <div class="navbar-inner">
@@ -23,11 +22,13 @@
                                 <span class="nav-link-text">Tableau de bord</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" href="javascript:">
-                                <i class="fa fa-folder text-danger"></i>
-                                <span class="nav-link-text">Mes Demandes</span>
+                        <li class="nav-item ">
+                            <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Mes Demandes
                             </a>
+                            <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
+                                <li><a href="#" class="dropdown-item" >Laisser-Passer</a></li>
+                                <li><a href="#" class="dropdown-item" >Attestation</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -57,26 +58,23 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="media align-items-center">
-                                        <span class="avatar avatar-sm rounded-circle">
-                                            <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg">
-                                        </span>
-                                        <div class="media-body  ml-2  d-none d-lg-block">
+                                        <div class="media-body  ml-2   d-lg-block">
                                             <span class="mb-0 text-sm  font-weight-bold">{{Auth::user()->prenom }} {{Auth::user()->name}}</span>
                                         </div>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu  dropdown-menu-right ">
                                     <div class="dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome!</h6>
+                                        <h6 class="text-overflow m-0">Bienvenue!</h6>
                                     </div>
                                     <a href="" class="dropdown-item">
                                         <i class="fa fa-user"></i>
-                                        <span>My profile</span>
+                                        <span>Mon Profil</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a href="{{route('logout')}}" class="dropdown-item">
                                         <i class="fa fa-sign-out-alt"></i>
-                                        <span>Logout</span>
+                                        <span>Deconnexion</span>
                                     </a>
                                 </div>
                             </li>
@@ -84,93 +82,15 @@
                     </div>
                 </div>
             </nav>
-            <div class="container-fluid pt-3">
+            <div class="container pt-3">
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Faire une demande</button>
-                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Formulaire de demande</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{route('create_demande',Auth::user()->id)}}" method="post" >
-                                                @csrf
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom*</label>
-                                                        <input type="text" value="{{Auth::user()->name}}" readonly name="name" class="form-control  @error('name') is-invalid @enderror" >
-                                                        @error('name')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Prenom*</label>
-                                                        <input type="text" value="{{Auth::user()->prenom}}" readonly name="prenom" class="form-control  @error('prenom') is-invalid @enderror">
-                                                        @error('prenom')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom Père*</label>
-                                                        <input type="text" value="" name="name_pere" class="form-control  @error('name_pere') is-invalid @enderror">
-                                                        @error('name_pere')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom Mere*</label>
-                                                        <input type="text" value="" name="name_mere" class="form-control  @error('name_mere') is-invalid @enderror">
-                                                        @error('name_mere')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Email*</label>
-                                                        <input type="email" value="{{Auth::user()->email}}" readonly name="email" class="form-control  @error('email') is-invalid @enderror">
-                                                        @error('email')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Date de Naissance*</label>
-                                                        <input type="text" value="" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
-                                                        @error('date_naissance')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Lieu Naissance*</label>
-                                                        <input type="text" value="" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
-                                                        @error('lieu_naissance')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="from-group col-md-6">
-                                                        <label for="genre">Genre*</label>
-                                                        <select class="form-control" name="genre" id="genre">
-                                                            <option value="masculin">Masculin</option>
-                                                            <option value="feminin">Feminin</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="from-group col-md-12">
-                                                        <label for="type_demande">Type de demande</label>
-                                                        <select class="form-control" name="type_demande" id="type_demande">
-                                                            <option value="laisser-passer">Laisser passer</option>
-                                                            <option value="atestation">Atestation</option>
-                                                            <option value="carte">Carte</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Photo*</label>
-                                                        <input type="file" value="" name="images" class="form-control @error('image') is-invalid @enderror">
-                                                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Photo Signature*</label>
-                                                        <input type="file" value="" name="image_signature" class="form-control @error('image_signature') is-invalid @enderror">
-                                                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a href="{{route('adddemande')}}"><button type="button" class="btn btn-primary">Faire une demande</button></a>
                         </div>
                     </div>
-                <div class="row m-5">
-                    <div class="col-lg-12">
+                    <br>
+                <div class="row ">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="row align-items-center">
