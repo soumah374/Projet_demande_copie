@@ -34,6 +34,11 @@ class AuthController extends Controller
         
         if (Auth::Attempt($credentials))
         {
+<<<<<<< HEAD
+
+            return redirect()->route('dashbord.index');
+            
+=======
             $verifyprofile = User::where('email', $request->email)->first();
 
             if($verifyprofile->status  == 1){
@@ -42,6 +47,7 @@ class AuthController extends Controller
             if($verifyprofile->status == 0){
                 return redirect()->route('profile'); 
             }
+>>>>>>> 2ce529d9e7f644f964968d6643ede9eab3e2735f
         }
 
         return redirect()->back()->withError("Identifiant ou mot de passe incorrect");
