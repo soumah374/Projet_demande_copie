@@ -15,8 +15,11 @@ class DashbordController extends Controller
      */
     public function index()
     {
-        $count_demande = Demande::count();
-        $demandeNotif = new NotificationController();
+        $count_demande=User::where('demande',1)->count();
+
+        $demandeNotif=new NotificationController();
+        $count_demande=$demandeNotif->compteDemande();
+
         return view('admin.dashbords.index',compact('count_demande'));
     }
 

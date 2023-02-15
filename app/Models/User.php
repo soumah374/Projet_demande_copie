@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Demande;
+use App\Models\Demandeur;
+use App\Models\PreValidation;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
@@ -43,8 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function demande(){
-        return $this->hasMany(demande::class);
+ 
+    public function demandeur(){
+        return $this->hasOne(Demandeur::class);
     }
 }
