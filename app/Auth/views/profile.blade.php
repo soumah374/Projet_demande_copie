@@ -11,7 +11,124 @@
         <link rel="stylesheet" href="{{asset('theme.css')}}">
         <link rel="stylesheet" href="{{asset('loopple.css')}}">
     </head>
+    <style>
+        body {
+  font-family: sans-serif;
+  background-color: #eeeeee;
+}
 
+.file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+    </style>
     <body>
         <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white loopple-fixed-start" id="sidenav-main">
             <div class="navbar-inner">
@@ -23,11 +140,13 @@
                                 <span class="nav-link-text">Tableau de bord</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" href="javascript:">
-                                <i class="fa fa-folder text-danger"></i>
-                                <span class="nav-link-text">Mes Demandes</span>
+                        <li class="nav-item ">
+                            <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Mes Demandes
                             </a>
+                            <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
+                                <li><a href="{{route('laisserpasser')}}" class="dropdown-item" >Laisser-Passer</a></li>
+                                <li><a href="{{route('attestation')}}" class="dropdown-item" >Attestation</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -57,26 +176,23 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="media align-items-center">
-                                        <span class="avatar avatar-sm rounded-circle">
-                                            <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg">
-                                        </span>
-                                        <div class="media-body  ml-2  d-none d-lg-block">
+                                        <div class="media-body  ml-2   d-lg-block">
                                             <span class="mb-0 text-sm  font-weight-bold">{{Auth::user()->prenom }} {{Auth::user()->name}}</span>
                                         </div>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu  dropdown-menu-right ">
                                     <div class="dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome!</h6>
+                                        <h6 class="text-overflow m-0">Bienvenue!</h6>
                                     </div>
                                     <a href="" class="dropdown-item">
                                         <i class="fa fa-user"></i>
-                                        <span>My profile</span>
+                                        <span>Mon Profil</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a href="{{route('logout')}}" class="dropdown-item">
                                         <i class="fa fa-sign-out-alt"></i>
-                                        <span>Logout</span>
+                                        <span>Deconnexion</span>
                                     </a>
                                 </div>
                             </li>
@@ -84,199 +200,61 @@
                     </div>
                 </div>
             </nav>
-            <div class="container-fluid pt-3">
+            <div class="container pt-3">
+                @yield('content')
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Faire une demande</button>
-                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Formulaire de demande</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{route('create_demande',Auth::user()->id)}}" method="post" >
-                                                @csrf
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom*</label>
-                                                        <input type="text" value="{{Auth::user()->name}}" readonly name="name" class="form-control  @error('name') is-invalid @enderror" >
-                                                        @error('name')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Prenom*</label>
-                                                        <input type="text" value="{{Auth::user()->prenom}}" readonly name="prenom" class="form-control  @error('prenom') is-invalid @enderror">
-                                                        @error('prenom')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom Père*</label>
-                                                        <input type="text" value="" name="name_pere" class="form-control  @error('name_pere') is-invalid @enderror">
-                                                        @error('name_pere')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nom Mere*</label>
-                                                        <input type="text" value="" name="name_mere" class="form-control  @error('name_mere') is-invalid @enderror">
-                                                        @error('name_mere')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Email*</label>
-                                                        <input type="email" value="{{Auth::user()->email}}" readonly name="email" class="form-control  @error('email') is-invalid @enderror">
-                                                        @error('email')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Date de Naissance*</label>
-                                                        <input type="text" value="" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
-                                                        @error('date_naissance')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Lieu Naissance*</label>
-                                                        <input type="text" value="" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
-                                                        @error('lieu_naissance')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="from-group col-md-6">
-                                                        <label for="genre">Genre*</label>
-                                                        <select class="form-control" name="genre" id="genre">
-                                                            <option value="masculin">Masculin</option>
-                                                            <option value="feminin">Feminin</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="from-group col-md-12">
-                                                        <label for="type_demande">Type de demande</label>
-                                                        <select class="form-control" name="type_demande" id="type_demande">
-                                                            <option value="laisser-passer">Laisser passer</option>
-                                                            <option value="atestation">Atestation</option>
-                                                            <option value="carte">Carte</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Photo*</label>
-                                                        <input type="file" value="" name="images" class="form-control @error('image') is-invalid @enderror">
-                                                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Photo Signature*</label>
-                                                        <input type="file" value="" name="image_signature" class="form-control @error('image_signature') is-invalid @enderror">
-                                                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a href="{{route('adddemande')}}" >
+                                <button type="button" class="btn btn-success" style="background-color: #1AA059; border:none" >Faire une demande</button>
+                            </a>
+
                         </div>
                     </div>
-                <div class="row m-5">
-                    <div class="col-lg-12">
+                    <br>
+                <div class="row ">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h3 class="mb-0">Les Demande en cours</h3>
                                     </div>
-                                    <div class="col text-right">
-                                        <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Type Demande</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">
-                                                Facebook
-                                            </th>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mr-2">60%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Facebook
-                                            </th>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mr-2">70%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Google
-                                            </th>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mr-2">80%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Instagram
-                                            </th>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mr-2">75%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                twitter
-                                            </th>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mr-2">30%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                <table class="table table-striped table-bordered" id="sampleTable">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Type Demande</th>
+                            <th>Date Demande</th>
+                            <th>Status</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $id = 1;?>
+                        @foreach($liste_demande as $liste)
+                        <tr>
+                            <td>{{$id++}}</td>
+                            <td>{{$liste->type_demande}}</td>
+                            <td>{{$liste->created_at}}</td>
+                            @if($liste->actifs == 0)
+                                <td>En cours de traitement</td>
+                                <td><a href="{{route('modifier_profile', $liste->id )}}" class="btn btn-primary" style="background-color: #1AA059; border:none"><i class="fa fa-edit"></i> Modifier</a></td>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            @else
+                                <td>Demande traitée</td>
+                            @endif
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <!-- Footer -->
-        </div>
+
+
         <script src="{{asset('loopple.js')}}"></script>
+        <script src="{{asset('ifile.js')}}"></script>
         <script src="https://rawcdn.githack.com/Loopple/loopple-public-assets/5cef8f62939eeb089fa26d4c53a49198de421e3d/argon-dashboard/js/vendor/jquery.min.js"></script>
         <script src="https://rawcdn.githack.com/Loopple/loopple-public-assets/5cef8f62939eeb089fa26d4c53a49198de421e3d/argon-dashboard/js/vendor/bootstrap.bundle.min.js"></script>
         <script src="https://rawcdn.githack.com/Loopple/loopple-public-assets/5cef8f62939eeb089fa26d4c53a49198de421e3d/argon-dashboard/js/vendor/js.cookie.js"></script>

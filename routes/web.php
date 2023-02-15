@@ -22,6 +22,11 @@ use App\Http\Controllers\MailController;
 */
 Route::get('/mail/{id}', [MailController::class, 'index'])->name('mailing');
 
+Route::get('/tpl', function(){
+    $app_name = env('APP_NAME','');
+    return view('layout.app')->with('app_name',$app_name );
+});
+
 
 
 
@@ -29,21 +34,20 @@ Route::get('/mail/{id}', [MailController::class, 'index'])->name('mailing');
 Route::group(["namespace" => "front"], function(){
     Route::get('/', [FrontedController::class, 'index'])->name("front.index");
     Route::get('/front/propos', [FrontedController::class, 'about'])->name("front.presentation.propos");
-    Route::get('/actualites', [FrontedController::class, 'actualites'])->name("front.actualites.index");
-    Route::get('/actualites/{id}', [FrontedController::class, 'actualites_show'])->name("front.actualites.show");
-    Route::get('/activites', [FrontedController::class, 'activites'])->name("front.activites.index");
-    Route::get('/activites/{id}', [FrontedController::class, 'activites_show'])->name("front.activites.show");
+    Route::get('/laisserPasser', [FrontedController::class,'laisserpasser'])->name("laisserpasser")->middleware("auth");
+    Route::get('/attestation', [FrontedController::class,'attestation'])->name("attestation")->middleware("auth");
 });
 
 Route::group(["namespace" => "admins"], function(){
     Route::get('/dashboard', [DashbordController::class, 'index'])->name("dashbord.index")->middleware("auth");
-
     Route::get('/nouveaux', [DemandeController::class, 'index'])->name("admins.demande")->middleware("auth");
     Route::get('/traiter', [DemandeController::class, 'index'])->name("admins.demande.liste")->middleware("auth");
     Route::get('/demande/{id}', [DemandeController::class, 'show'])->name("admins.demande.show")->middleware("auth");
     Route::put('/demande/{id}', [DemandeController::class, 'update'])->name("admins.demande.update")->middleware("auth");
+    Route::put('/demandevalidation/{id}', [DemandeController::class, 'updatevalidation'])->name("admins.demande.updatevalidation")->middleware("auth");
+    Route::get('/preValidation',[DemandeController::class, 'preValidation'])->name('admins.preValidation')->middleware("auth");
 
-
+    Route::get('/modifier_profile/{id}', [FrontedController::class, 'modifier_profile'])->name("modifier_profile")->middleware("auth");
 
     Route::get('/users', [UtilisateurController::class, 'index'])->name("admins.utilisateur")->middleware("auth");
 
@@ -62,6 +66,7 @@ Route::group(["namespace" => "Auth"], function(){
     Route::get('/register',[UtilisateurController::class, 'inscription'])->name('register.incription');
     Route::post('/register',[AuthController::class,'create'])->name('register');
     Route::get('/logout',[AuthController::class,'logout'])->name('logout')->middleware("auth");
-    Route::get('/profile',[FrontedController::class,'file'])->name('profile')->middleware("auth");
-    Route::post('/createdemande/{id}', [AuthController::class, 'create_demande'])->name("create_demande")->middleware("auth");
+    Route::get('/profile',[AuthController::class,'file'])->name('profile')->middleware("auth");
+    Route::post('/createdemande',[DemandeController::class, 'store'])->name("create_demande")->middleware("auth");
+    Route::get('/adddemande',[AuthController::class,'adddemande'])->name('adddemande')->middleware("auth");
 });

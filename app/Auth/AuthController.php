@@ -3,11 +3,13 @@
 namespace App\Auth;
 
 use App\Models\User;
+use App\Models\Demande;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Context;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -16,59 +18,39 @@ class AuthController extends Controller
        return view('Auth::login');
     }
 
-    public function profils()
-    {
-        $idUsers=Auth::user()->id;
-
-        $UsersInfos=Auth::user();
-
-        return view('Auth::profils');
+    public function file(){
+        $liste_demande = Demande::where('users_id', Auth::user()->id)->get();
+        return view('Auth::profile',compact('liste_demande'));
     }
 
     public function login(Request $request)
     {
-        request()->validate([
-            'email'=>'required',
-            'password'=>'required'
+        $validation = Validator::make($request->all(),[
+            'email' => 'bail|required|email|max:255',
+            'password'=>'bail|required'
         ]);
 
-        $verifyUser = User::where('email', $request->email)
-                            ->where('statuts', 1)
-                            ->first();
-
-        if($verifyUser && $verifyUser->statuts == 1)
+        $credentials = $request->only('email', 'password');
+        
+        if (Auth::Attempt($credentials))
         {
-            $credentials = $request->only('email', 'password');
+<<<<<<< HEAD
 
-            if (Auth::Attempt($credentials))
-            {
-                return redirect()->intended('/dashboard');
+            return redirect()->route('dashbord.index');
+            
+=======
+            $verifyprofile = User::where('email', $request->email)->first();
+
+            if($verifyprofile->status  == 1){
+                return redirect()->route('dashbord.index');
             }
-            // toastr()->error('Accès refusé!!!','Alert');
-            return redirect()->back();
-        }else{
-            Session::flash('error',"Identifiant ou mot de passe incorrect");
-        }
-        // toastr()->info('Téléphone ou mot de passe incorrect!!!','Information');
-
-        $verifyprofile = User::where('email', $request->email)
-                                    ->where('statuts', 0)
-                                    ->first();
-
-        if($verifyprofile && $verifyprofile->statuts == 0)
-        {
-            $credentials = $request->only('email', 'password');
-
-            if (Auth::Attempt($credentials))
-            {
-                return redirect()->route('profile');
+            if($verifyprofile->status == 0){
+                return redirect()->route('profile'); 
             }
-            // toastr()->error('Accès refusé!!!','Alert');
-            return redirect()->back();
-        }else{
-            Session::flash('error',"Identifiant ou mot de passe incorrect");
+>>>>>>> 2ce529d9e7f644f964968d6643ede9eab3e2735f
         }
-        return back();
+
+        return redirect()->back()->withError("Identifiant ou mot de passe incorrect");
     }
 
     public function create(Request $request){
@@ -88,6 +70,7 @@ class AuthController extends Controller
             $user->email=$request->email;
             $user->password=bcrypt($request->password);
             $user->save();
+            $user->attachRole('utilisateur');
             toastr()->success("Création du compte effectuée avec success");
             return redirect()->route('profile');
         }
@@ -139,5 +122,7 @@ class AuthController extends Controller
         }
     }
 
-
+    public function adddemande(){
+        return view('Auth::demande');
+    }
 }
