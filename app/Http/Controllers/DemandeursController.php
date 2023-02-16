@@ -25,43 +25,43 @@ class DemandeursController extends Controller
     }else{
 
         $demandeur = Demandeur::where('users_id', Auth::user()->id)->first();
-        if($demandeur !== null){
-            $demandeur->telephone = $request->telephone;
-            $demandeur->nom_pere = $request->nom_pere;
-            $demandeur->nom_mere = $request->nom_mere;
-            $demandeur->lieu_naissance = $request->lieu_naissance;
-            $demandeur->date_naissance = $request->date_naissance;
-            $demandeur->update();
-            toastr()->success("Votre compte a été modifier avec succès ");
-            return redirect()->back();
-        } else{
-
-            $demandeurs = new Demandeur();
-            $demandeurs->telephone = $request->telephone;
-            $demandeurs->nom_pere = $request->nom_pere;
-            $demandeurs->nom_mere = $request->nom_mere;
-            $demandeurs->lieu_naissance = $request->lieu_naissance;
-            $demandeurs->date_naissance = $request->date_naissance;
-            $demandeurs->users_id = $request->identifiant;
-            $demandeurs->save();
+        if($demandeur == null){
+            $demandeur = new Demandeur();
+        }
+        $demandeur->telephone = $request->telephone;
+        $demandeur->nom_pere = $request->nom_pere;
+        $demandeur->nom_mere = $request->nom_mere;
+        $demandeur->lieu_naissance = $request->lieu_naissance;
+        $demandeur->date_naissance = $request->date_naissance;
+        $demandeur->users_id = Auth::user()->id;
+        $demandeur->genre =  $request->genre;
+        $demandeur->save();
+    
+        if($demandeur == null){
             toastr()->success("Votre compte a été completer avec succès ");
             return redirect()->back();
+        }else{
+            toastr()->success("Votre compte a été modifier avec succès ");
+            return redirect()->back();
         }
-
     }
    }
 
    public function profile(){
     $ldemande = Demandeur::where('users_id',Auth::user()->id)->first();
+    dd($ldemande);
     return view('demandeur.index',compact('ldemande'));
     }
 
-    public function show(){
-        return view('demandeur.index');
+    public function index(Request $request){
+        $ldemande = Demandeur::where('users_id',Auth::user()->id)->first();
+        $segment = $request->segment(2);
+        return view('demandeur.index',compact('segment'));
     }
 
     public function completprofil(){
-        return view('demandeur.completprofil');
+        $demandeur = Demandeur::where('users_id',Auth::user()->id)->first();
+        return view('demandeur.completprofil', compact('demandeur'));
     }
 
 }
