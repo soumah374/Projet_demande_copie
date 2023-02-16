@@ -49,12 +49,14 @@ class DemandeursController extends Controller
 
    public function profile(){
     $ldemande = Demandeur::where('users_id',Auth::user()->id)->first();
+    dd($ldemande);
     return view('demandeur.index',compact('ldemande'));
     }
 
-    public function show(){
-       
-        return view('demandeur.index');
+    public function index(Request $request){
+        $ldemande = Demandeur::where('users_id',Auth::user()->id)->first();
+        $segment = $request->segment(2);
+        return view('demandeur.index',compact('segment'));
     }
 
     public function completprofil(){

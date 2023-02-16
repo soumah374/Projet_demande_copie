@@ -29,12 +29,11 @@
                                 <span class="nav-link-text">Mon Profil</span>
                             </a>
                         </li>
-                        
                         <li class="nav-item ">
                             <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Mes Demandes</a>
                             <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
-                                <li><a href="{{route('laisserpasser')}}" class="dropdown-item" >Laisser-Passer</a></li>
-                                <li><a href="{{route('attestation')}}" class="dropdown-item" >Attestation</a></li>
+                                <li><a href="{{route('profile.laisser-passer')}}" class="dropdown-item" >Laisser-Passer</a></li>
+                                <li><a href="{{route('profile.attestations')}}" class="dropdown-item" >Attestation</a></li>
                             </ul>
                         </li>
                     @endif

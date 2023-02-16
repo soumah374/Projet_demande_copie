@@ -3,16 +3,20 @@
 <div class="container pt-3">
     <div class="row">
         <div class="col-0">
-            <form action="{{route('soumettredemande')}}" method="post" enctype="multipart/form-data" >
-                @csrf
-                <button type="submit" class="btn btn-success" style="background-color: #1AA059; border:none">Attestation</button>
-            </form>
+            @if($segment == 'attestations')
+                <form action="{{route('soumettredemande')}}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <button type="submit" class="btn btn-success" style="background-color: #1AA059; border:none">Attestation</button>
+                </form>
+            @endif
         </div>
         <div class="col-4">
-            <form action="{{route('soumettredemande')}}" method="post" enctype="multipart/form-data" >
-                @csrf
-                <button type="submit" class="btn btn-success" style="background-color: #1AA059; border:none">Laisser Passer</button>
-            </form>
+            @if($segment == 'laisser-passer')
+                <form action="{{route('soumettredemande')}}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <button type="submit" class="btn btn-success" style="background-color: #1AA059; border:none">Laisser Passer</button>
+                </form>
+            @endif
         </div>
     </div>
     <br>
