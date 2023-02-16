@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Demande;
 
 class Demandeur extends Model
 {
@@ -13,17 +14,16 @@ class Demandeur extends Model
   public function documentDemandeurs()
   {
     return $this->hasMany(DocumentDemandeur::class);
-  } 
+  }
 
   public function demandes()
   {
     return $this->hasMany(Demande::class);
-  } 
-  
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);
   }
 
-  
 }

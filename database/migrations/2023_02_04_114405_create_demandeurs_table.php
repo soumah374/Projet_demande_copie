@@ -22,7 +22,6 @@ class CreateDemandeursTable extends Migration
             $table->string('nom_mere')->default('');
             $table->string('telephone')->default('');
             $table->string('prevalidateur')->default('');
-            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             $table->foreignId('users_id')->constrained()->onDelete('cascade');
 
