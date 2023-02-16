@@ -44,7 +44,6 @@ Route::group(["namespace" => "front"], function(){
     Route::get('/completprofil', [DemandeursController::class,'completprofil'])->name("completprofil")->middleware("auth");
     Route::post('/soumettredemande', [DemandeController::class,'store'])->name("soumettredemande")->middleware("auth");
     Route::post('/soumettredemande', [DemandeController::class,'storepasser'])->name("soumettredemande")->middleware("auth");
-
 });
 
 Route::group(["namespace" => "admins"], function(){

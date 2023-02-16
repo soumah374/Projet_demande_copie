@@ -28,6 +28,7 @@
             </div>
     <table class="table table-striped table-bordered" id="sampleTable">
     <thead>
+       
         <tr>
             <th>N°</th>
             <th>Type Demande</th>
@@ -37,6 +38,9 @@
         </tr>
     </thead>
     <tbody>
+            <tr>
+                <td></td>
+            </tr>
 
     </tbody>
     </table>
