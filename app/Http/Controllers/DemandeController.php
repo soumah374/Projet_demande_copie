@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Demande;
 use Nette\Utils\Random;
@@ -24,18 +24,24 @@ class DemandeController extends Controller
         if($segments == "nouveaux"){
             $demandeNotif=new NotificationController();
             $count_demande=$demandeNotif->compteDemande();
-            $demande=User::where('demande',1)->where('actifs',0)->orderBy('id','DESC')->get();
-            return view('admin.demande.index',compact('demande','count_demande','segments'));
+            $demande=Demande::where('isValidated',0)->orderBy('id','DESC')->get();
+            return view('admin.demandes.index',compact('demande','count_demande','segments'));
         }
         if($segments == "traiter"){
             $demandeNotif=new NotificationController();
             $count_demande=$demandeNotif->compteDemande();
-            $demande=User::where('demande',1)->where('actifs',1)->orderBy('id','DESC')->get();
-            return view('admin.demande.index',compact('demande','count_demande','segments'));
+            $demande=Demande::where('isValidated',1)->orderBy('id','DESC')->get();
+            return view('admin.demandes.index',compact('demande','count_demande','segments'));
         }
 
     }
-
+    public function preValidation(){
+        $segments =request()->segment(1);
+        $demandeNotif=new NotificationController();
+        $count_demande=$demandeNotif->compteDemande();
+        $demande=Demande::where('isValidated',1)->orderBy('id','DESC')->get();
+        return view('admin.demandes.index',compact('demande','count_demande','segments'));
+    }
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
