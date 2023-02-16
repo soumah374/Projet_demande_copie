@@ -22,31 +22,37 @@
                             <span class="nav-link-text">Tableau de bord</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{route('completprofil')}}">
-                            <i class="fa fa-user text-primary"></i>
-                            <span class="nav-link-text">Mon Profil</span>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Mes Demandes
-                        </a>
-                        <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
-                            <li><a href="{{route('laisserpasser')}}" class="dropdown-item" >Laisser-Passer</a></li>
-                            <li><a href="{{route('attestation')}}" class="dropdown-item" >Attestation</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Les Demandes</a>
-                        <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
-                            <li><a href="{{route('admins.demande')}}" class="dropdown-item {{ (request()->segment(1)== 'nouveaux') ? 'active' : ''}}" ><i class="fa fa-bell"></i><span class="app-menu__label"> Nouveaux</span>@if($count_demande>0)<span class="badge badge-danger">{{$count_demande}}</span>@endif</a></li>
-                            <li><a href="{{route('admins.demande.liste')}}" class="dropdown-item {{(request()->segment(1)== 'traiter') ? 'active': ''}}" ><i class="fa fa-user-circle"></i><span class="app-menu__label"> Traités</span></a></li>
-                        </ul>
-                    </li>
+                    @if(Auth::user()->hasRole('demandeur'))
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{route('completprofil')}}">
+                                <i class="fa fa-user text-primary"></i>
+                                <span class="nav-link-text">Mon Profil</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Mes Demandes</a>
+                            <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
+                                <li><a href="{{route('laisserpasser')}}" class="dropdown-item" >Laisser-Passer</a></li>
+                                <li><a href="{{route('attestation')}}" class="dropdown-item" >Attestation</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if (Auth::user()->hasRole('admin'))
+                        <li class="nav-item ">
+                            <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Les Demandes</a>
+                            <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
+                                <li><a href="{{route('admins.demande')}}" class="dropdown-item {{ (request()->segment(1)== 'nouveaux') ? 'active' : ''}}" ><i class="fa fa-bell"></i><span class="app-menu__label"> Nouveaux</span>@if($count_demande>0)<span class="badge badge-danger">{{$count_demande}}</span>@endif</a></li>
+                                <li><a href="{{route('admins.demande.liste')}}" class="dropdown-item {{(request()->segment(1)== 'traiter') ? 'active': ''}}" ><i class="fa fa-user-circle"></i><span class="app-menu__label"> Traités</span></a></li>
+                            </ul>
+                        </li>
+                    @endif
                     @if (Auth::user()->hasPermission('valider'))
                         <li class="nav-item"><a class="nav-link {{(request()->segment(1)== 'prevalidation') ? 'active': ''}}" href="{{route('admins.preValidation')}}"><i class="fa fa-user"></i><span class="app-menu__label">Pre validation</span></a></li>
                     @endif
-                    <li class="nav-item"><a class="nav-link {{(request()->segment(1)== 'users') ? 'active': ''}}" href="{{route('admins.utilisateur')}}"><i class="fa fa-user"></i><span class="app-menu__label">Gestion des utilisateurs</span></a></li>
+                    @if(Auth::user()->hasRole('admin'))
+                        <li class="nav-item"><a class="nav-link {{(request()->segment(1)== 'users') ? 'active': ''}}" href="{{route('admins.utilisateur')}}"><i class="fa fa-user"></i><span class="app-menu__label">Gestion des utilisateurs</span></a></li>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Demande;
 use Nette\Utils\Random;
 use App\Models\Demandeur;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use App\Http\Controllers\NotificationController;
@@ -94,7 +93,7 @@ class DemandeController extends Controller
 
         if($demande)
         {
-            return view('admin.demande.show',compact('demande','count_demande'));
+            return view('admin.demandes.show',compact('demande','count_demande'));
         }else{
             return back();
         }

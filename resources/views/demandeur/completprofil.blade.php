@@ -16,35 +16,35 @@
 
             <div class="form-group col-md-6">
                 <label>Nom Père*</label>
-                <input type="text" name="nom_pere" value="{{old('nom_pere')}}" class="form-control  @error('nom_pere') is-invalid @enderror">
+                <input type="text" name="nom_pere" value="{{$demandeur ? $demandeur->nom_pere : old('nom_pere')}}" class="form-control  @error('nom_pere') is-invalid @enderror">
                 @error('nom_pere')<span class="text text-danger">{{$message}}</span>@enderror
             </div>
             <div class="form-group col-md-6">
                 <label>Nom Mere*</label>
-                <input type="text" value="{{old('nom_mere')}}" name="nom_mere" class="form-control  @error('nom_mere') is-invalid @enderror">
+                <input type="text" value="{{$demandeur ? $demandeur->nom_mere: old('nom_mere')}}" name="nom_mere" class="form-control  @error('nom_mere') is-invalid @enderror">
                 @error('nom_mere')<span class="text text-danger">{{$message}}</span>@enderror
             </div>
 
             <div class="form-group col-md-6">
                 <label>Date de Naissance*</label>
-                <input type="date" value="{{old('date_naissance')}}" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
+                <input type="date" value="{{$demandeur ? $demandeur->date_naissance : old('date_naissance')}}" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
                 @error('date_naissance')<span class="text text-danger">{{$message}}</span>@enderror
             </div>
             <div class="form-group col-md-6">
                 <label>Lieu Naissance*</label>
-                <input type="text" value="{{old('lieu_naissance')}}" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
+                <input type="text" value="{{$demandeur ? $demandeur->lieu_naissance : old('lieu_naissance')}}" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
                 @error('lieu_naissance')<span class="text text-danger">{{$message}}</span>@enderror
             </div>
             <div class="form-group col-md-6">
                 <label>Telephone*</label>
-                <input type="text" value="{{old('telephone')}}" name="telephone" class="form-control  @error('telephone') is-invalid @enderror">
+                <input type="text" value="{{$demandeur ? $demandeur->telephone :  old('telephone')}}" name="telephone" class="form-control  @error('telephone') is-invalid @enderror">
                 @error('telephone')<span class="text text-danger">{{$message}}</span>@enderror
             </div>
             <div class="from-group col-md-6">
                 <label for="genre">Genre*</label>
                 <select class="form-control" name="genre" id="genre">
-                    <option value="masculin">Masculin</option>
-                    <option value="feminin">Feminin</option>
+                    <option value="masculin" {{ $demandeur && $demandeur->genre == 'masculin' ? 'selected' :''  }}>Masculin</option>
+                    <option value="feminin" {{ $demandeur && $demandeur->genre == 'feminin' ? 'selected' :''  }} >Feminin</option>
                 </select>
             </div>
             <div class="form-group col-md-12 mt-5">

@@ -33,7 +33,8 @@ class DemandeursController extends Controller
         $demandeur->nom_mere = $request->nom_mere;
         $demandeur->lieu_naissance = $request->lieu_naissance;
         $demandeur->date_naissance = $request->date_naissance;
-        $demandeur->users_id = $request->identifiant;
+        $demandeur->users_id = Auth::user()->id;
+        $demandeur->genre =  $request->genre;
         $demandeur->save();
     
         if($demandeur == null){
@@ -52,11 +53,13 @@ class DemandeursController extends Controller
     }
 
     public function show(){
+       
         return view('demandeur.index');
     }
 
     public function completprofil(){
-        return view('demandeur.completprofil');
+        $demandeur = Demandeur::where('users_id',Auth::user()->id)->first();
+        return view('demandeur.completprofil', compact('demandeur'));
     }
 
 }

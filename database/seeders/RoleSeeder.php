@@ -23,7 +23,7 @@ class RoleSeeder extends Seeder
             'name'=>'pdg'
         ]);
         Role::create([
-            'name'=>'utilisateur'
+            'name'=>'demandeur'
         ]);
         Permission::create([
             'name'=>'createUser'
