@@ -43,14 +43,14 @@ Route::group(["namespace" => "front"], function(){
     Route::get('/attestation', [FrontedController::class,'attestation'])->name("attestation")->middleware("auth");
     Route::post('/completprofil', [DemandeursController::class,'store'])->name("demandeursoumis")->middleware("auth");
     Route::get('/completprofil', [DemandeursController::class,'completprofil'])->name("completprofil")->middleware("auth");
-    Route::post('/demande/demandeattestation', [DemandeController::class,'store'])->name("demandeattestation")->middleware("auth");
-    Route::post('/demande/demandelaisserpasser', [DemandeController::class,'storepasser'])->name("demandelaisserpasser")->middleware("auth");
+    Route::post('/demande/attestation', [DemandeController::class,'store'])->name("demande.attestation")->middleware("auth");
+    Route::post('/demande/laisserpasser', [DemandeController::class,'storepasser'])->name("demande.laisserpasser")->middleware("auth");
 });
 
 Route::group(["namespace" => "admins"], function(){
     Route::get('/dashboard', [DashbordController::class, 'index'])->name("dashbord.index")->middleware("auth");
-    Route::get('/nouveaux', [DemandeController::class, 'index'])->name("admins.demande")->middleware("auth");
-    Route::get('/traiter', [DemandeController::class, 'index'])->name("admins.demande.liste")->middleware("auth");
+    Route::get('/demandes/nouveaux', [DemandeController::class, 'index'])->name("admins.demande.nouvelle")->middleware("auth");
+    Route::get('demandes/traiter', [DemandeController::class, 'index'])->name("admins.demande.traites")->middleware("auth");
     Route::get('/demande/{id}', [DemandeController::class, 'show'])->name("admins.demande.show")->middleware("auth");
     Route::put('/demande/{id}', [DemandeController::class, 'update'])->name("admins.demande.update")->middleware("auth");
     Route::put('/demandevalidation/{id}', [DemandeController::class, 'updatevalidation'])->name("admins.demande.updatevalidation")->middleware("auth");
