@@ -121,7 +121,6 @@ class DemandeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $demande=Demande::FindOrFail($id);
         // $demande->user_id = Auth::user()->id;
         $demande->isValidated = True;
@@ -129,7 +128,6 @@ class DemandeController extends Controller
         $demande->update();
         toastr()->success('Validation éffectuée avec succèss');
         return back();
-
     }
 
     public function updatevalidation(Request $request, $id)
