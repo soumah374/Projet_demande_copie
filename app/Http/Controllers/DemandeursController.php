@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Demandeur;
+use App\Models\Demande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -36,7 +37,7 @@ class DemandeursController extends Controller
         $demandeur->users_id = Auth::user()->id;
         $demandeur->genre =  $request->genre;
         $demandeur->save();
-    
+
         if($demandeur == null){
             toastr()->success("Votre compte a été completer avec succès ");
             return redirect()->back();
@@ -54,9 +55,10 @@ class DemandeursController extends Controller
     }
 
     public function index(Request $request){
-        $ldemande = Demandeur::where('users_id',Auth::user()->id)->first();
+        $ldemande = Demande::where('demandeur_id',Auth::user()->id)->first();
+        $listedemande = Demande::where('demandeur_id',Auth::user()->id)->get();
         $segment = $request->segment(2);
-        return view('demandeur.index',compact('segment'));
+        return view('demandeur.index',compact('segment','ldemande','listedemande'));
     }
 
     public function completprofil(){
