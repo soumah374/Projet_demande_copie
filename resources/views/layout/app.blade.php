@@ -22,7 +22,6 @@
                             <span class="nav-link-text">Tableau de bord</span>
                         </a>
                     </li>
-<<<<<<< HEAD
                     <li class="nav-item">
                         <a class="nav-link " href="{{route('completprofil')}}">
                             <i class="fa fa-user text-primary"></i>
@@ -37,7 +36,6 @@
                             <li><a href="{{route('attestation')}}" class="dropdown-item" >Attestation</a></li>
                         </ul>
                     </li>
-=======
                     <li class="nav-item ">
                         <a href="#dropdown-db" aria-expanded="true" data-toggle="collapse" class="nav-link"><i class="fa fa-folder text-danger"></i>Les Demandes</a>
                         <ul id="dropdown-db" class="collapse list-unstyled pt-0 ml-4">
@@ -49,59 +47,10 @@
                         <li class="nav-item"><a class="nav-link {{(request()->segment(1)== 'prevalidation') ? 'active': ''}}" href="{{route('admins.preValidation')}}"><i class="fa fa-user"></i><span class="app-menu__label">Pre validation</span></a></li>
                     @endif
                     <li class="nav-item"><a class="nav-link {{(request()->segment(1)== 'users') ? 'active': ''}}" href="{{route('admins.utilisateur')}}"><i class="fa fa-user"></i><span class="app-menu__label">Gestion des utilisateurs</span></a></li>
->>>>>>> 0ac06a191d7e5456e5e74992b7d98c157bdf3110
                 </ul>
             </div>
         </div>
     </nav>
-<<<<<<< HEAD
-        <div class="main-content" id="panel">
-            <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom " id="navbarTop" style="background-color: #078a36" >
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav align-items-center  ml-md-auto ">
-                            <li class="nav-item d-xl-none">
-                                <div class="pr-3 sidenav-toggler sidenav-toggler-dark active" data-action="sidenav-pin" data-target="#sidenav-main">
-                                    <div class="sidenav-toggler-inner">
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item d-sm-none">
-                                <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                                    <i class="ni ni-zoom-split-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="media align-items-center">
-                                        <div class="media-body  ml-2   d-lg-block">
-                                            <span class="mb-0 text-sm  font-weight-bold">{{Auth::user()->prenom }} {{Auth::user()->name}}</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu  dropdown-menu-right ">
-                                    <div class="dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Bienvenue!</h6>
-                                    </div>
-                                    <a href="" class="dropdown-item">
-                                        <i class="fa fa-user"></i>
-                                        <span>Mon Profil</span>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="{{route('logout')}}" class="dropdown-item">
-                                        <i class="fa fa-sign-out-alt"></i>
-                                        <span>Deconnexion</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-=======
     <div class="main-content" id="panel">
         <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom bg-warning" id="navbarTop">
             <div class="container-fluid">
@@ -136,7 +85,6 @@
                             </div>
                         </li>
                     </ul>
->>>>>>> 0ac06a191d7e5456e5e74992b7d98c157bdf3110
                 </div>
             </nav>
         <div class="container-fluid pt-3">
