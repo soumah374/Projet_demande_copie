@@ -6,10 +6,13 @@ use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\ActualiteController;
 use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\DemandeursController;
 use App\Http\Controllers\TemoignageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\MailController;
+use App\Models\Demande;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +37,14 @@ Route::get('/tpl', function(){
 Route::group(["namespace" => "front"], function(){
     Route::get('/', [FrontedController::class, 'index'])->name("front.index");
     Route::get('/front/propos', [FrontedController::class, 'about'])->name("front.presentation.propos");
+    Route::get('/profile', [DemandeursController::class,'show'])->name("profile")->middleware("auth");
     Route::get('/laisserPasser', [FrontedController::class,'laisserpasser'])->name("laisserpasser")->middleware("auth");
     Route::get('/attestation', [FrontedController::class,'attestation'])->name("attestation")->middleware("auth");
+    Route::post('/completprofil', [DemandeursController::class,'store'])->name("demandeursoumis")->middleware("auth");
+    Route::get('/completprofil', [DemandeursController::class,'completprofil'])->name("completprofil")->middleware("auth");
+    Route::post('/soumettredemande', [DemandeController::class,'store'])->name("soumettredemande")->middleware("auth");
+    Route::post('/soumettredemande', [DemandeController::class,'storepasser'])->name("soumettredemande")->middleware("auth");
+
 });
 
 Route::group(["namespace" => "admins"], function(){
@@ -66,7 +75,8 @@ Route::group(["namespace" => "Auth"], function(){
     Route::get('/register',[UtilisateurController::class, 'inscription'])->name('register.incription');
     Route::post('/register',[AuthController::class,'create'])->name('register');
     Route::get('/logout',[AuthController::class,'logout'])->name('logout')->middleware("auth");
-    Route::get('/profile',[AuthController::class,'file'])->name('profile')->middleware("auth");
-    Route::post('/createdemande',[DemandeController::class, 'store'])->name("create_demande")->middleware("auth");
     Route::get('/adddemande',[AuthController::class,'adddemande'])->name('adddemande')->middleware("auth");
 });
+
+
+

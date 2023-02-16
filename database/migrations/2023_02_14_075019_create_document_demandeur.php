@@ -20,7 +20,7 @@ class CreateDocumentDemandeur extends Migration
             $table->string('filename')->nullable();
             $table->string('name')->nullable();
             $table->string('type_document')->enum('photo','signature','autre')->nullable();
-            $table->foreignId('demandeurs_id')->constrained()->onDelete('cascade');
+            $table->foreignId('demandeur_id')->constrained()->onDelete('cascade');
         });
     }
 

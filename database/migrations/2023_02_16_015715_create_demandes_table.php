@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDemandeur extends Migration
+class CreateDemandesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,10 +23,8 @@ class CreateDemandeur extends Migration
             $table->date('dismissed_at')->nullable();
             $table->boolean('isAccepted')->nullable();
             $table->text('comment')->nullable();
-           
-            $table->foreignId('demandeurs_id')->constrained()->onDelete('cascade');
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
-
+            
+            $table->foreignId('demandeur_id')->constrained()->onDelete('cascade');
         });
     }
 

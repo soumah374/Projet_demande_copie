@@ -18,10 +18,7 @@ class AuthController extends Controller
        return view('Auth::login');
     }
 
-    public function file(){
-        $liste_demande = Demande::where('users_id', Auth::user()->id)->get();
-        return view('Auth::profile',compact('liste_demande'));
-    }
+
 
     public function login(Request $request)
     {
@@ -31,12 +28,12 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        
+
         if (Auth::Attempt($credentials))
         {
 
             return redirect()->route('dashbord.index');
-            
+
         }
 
         return redirect()->back()->withError("Identifiant ou mot de passe incorrect");
