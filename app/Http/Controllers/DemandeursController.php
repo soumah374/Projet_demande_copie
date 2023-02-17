@@ -52,7 +52,6 @@ class DemandeursController extends Controller
         $ldemande = Demandeur::where('user_id',Auth::user()->id)->first();
         return view('demandeur.index',compact('ldemande'));
     }
-
     public function index(Request $request){
         $segment = $request->segment(2);
         $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
