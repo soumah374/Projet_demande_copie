@@ -57,21 +57,21 @@
     <div class="col-md-2 col-lg-4 col-4">
         <div class="card">
             <div class="card-body">
-                <h1>Mes demandes encours de traitements: {{$count_demande}}</h1>
+                <h2>Mes demandes encours de traitements: {{$count_demande}}</h1>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-4 col-4">
         <div class="card">
             <div class="card-body">
-                <h1>Mes demandes traitées: {{$count_demande}}</h1>
+                <h2>Mes demandes traitées: {{$count_demande}}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-4 col-4">
         <div class="card">
             <div class="card-body">
-                <h1>Mes demandes validées: {{$count_demande}}</h1>
+                <h2>Mes demandes validées: {{$count_demande}}</h2>
             </div>
         </div>
     </div>

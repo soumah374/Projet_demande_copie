@@ -19,7 +19,11 @@ class DocumentDemandeurController extends Controller
         if($validation->fails()){
             return redirect()->back()->withErrors($validation)->withInput();
         }else{
-            $document = new DocumentDemandeur();
+            $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
+            $document = DocumentDemandeur::where('demandeur_id',$demandeur->id)->first();
+            if($document == null){
+                $document = new DocumentDemandeur();
+            }
             if($request->file('images'))
             {
                 $file=$request->file('images');
@@ -28,7 +32,7 @@ class DocumentDemandeurController extends Controller
                 $originalName=time().".".$originalExtensions;
                 $nomImage=$uploadDestination."/".$originalName;
                 $file->move($uploadDestination,$originalName);
-                $document->filename=$originalName;
+                $document->name=$originalName;
                 $document->type_document = 'photo identite';
                 $document->path = $nomImage;
             }
@@ -47,9 +51,16 @@ class DocumentDemandeurController extends Controller
             $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
             $document->demandeur_id = $demandeur->id;
             $document->save();
-            toastr()->success("Document ajouté avec success");
-            return back();
+            if($document == null){
+                toastr()->success("Votre compte a été completer avec succès ");
+                return redirect()->back();
+            }else{
+                toastr()->success("Votre compte a été modifier avec succès ");
+                return redirect()->back();
+            }
 
         }
     }
+
+
 }
