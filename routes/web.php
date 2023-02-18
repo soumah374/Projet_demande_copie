@@ -43,6 +43,7 @@ Route::group(["namespace" => "front"], function(){
     Route::post('/demande/attestation', [DemandeController::class,'store'])->name("demande.attestation")->middleware("auth");
     Route::post('/demande/laisserpasser', [DemandeController::class,'storepasser'])->name("demande.laisserpasser")->middleware("auth");
     Route::post('/demande/document', [DocumentDemandeurController::class,'store'])->name("demande.document")->middleware("auth");
+    Route::get('/demande/detail/document', [DocumentDemandeurController::class,'show'])->name("demande.detail.document")->middleware("auth");
 });
 
 Route::group(["namespace" => "admins"], function(){

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Demandeur;
 use App\Models\Demande;
+use App\Models\Demandeur;
 use Illuminate\Http\Request;
+use App\Models\DocumentDemandeur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -70,7 +71,10 @@ class DemandeursController extends Controller
 
     public function completprofil(){
         $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
-        return view('demandeur.completprofil', compact('demandeur'));
+        $document = DocumentDemandeur::where('demandeur_id',$demandeur->id)->first();
+        $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
+        return view('demandeur.completprofil', compact('demandeur','document'));
     }
+
 
 }
