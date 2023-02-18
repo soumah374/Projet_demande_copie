@@ -52,10 +52,10 @@ class DocumentDemandeurController extends Controller
             $document->demandeur_id = $demandeur->id;
             $document->save();
             if($document == null){
-                toastr()->success("Votre compte a été completer avec succès ");
+                toastr()->success("Votre document à été ajouter avec succès ");
                 return redirect()->back();
             }else{
-                toastr()->success("Votre compte a été modifier avec succès ");
+                toastr()->success("Votre document à été modifier avec succès ");
                 return redirect()->back();
             }
 

@@ -86,7 +86,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="file-upload col-6">
+                      <div class="file-upload  col-6">
                           <button class="file-upload-btn" type="button" onclick="$('.file-upload-inputs').trigger( 'click' )">Ajout Photo Signature</button>
                           <div class="image-upload-wraps">
                             <input class="file-upload-inputs" type='file' onchange="readURLS(this);" accept="image/*" name="image_signature"/>
@@ -113,19 +113,14 @@
                     <fieldset class="h1 ">Vos Documents</fieldset>
                     <div class="row">
                         <div class="col-md-12">
-                        <div class="card">
-                                <div class="card-bordy">
                                     <div class="col-6">
                                         <p><strong class="titre_demande">Photo :</strong> <img src="{{asset('img/images/'.$document->name)}}" alt="" width="90%"></p>
                                     </div>
                                     <div class="col-6">
                                         <p><strong class="titre_demande">Photo Signature :</strong> <img src="{{asset('img/imageSignature/'.$document->filename)}}" alt="" width="90%"></p>
                                     </div>
-                                </div>
                             </div>
                         </div>
-                        </div>
-                
                     </div>
                 </div>
             </div>
