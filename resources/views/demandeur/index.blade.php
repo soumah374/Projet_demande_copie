@@ -68,49 +68,44 @@
             </form>
         @endif
     </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header border-0">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="mb-0">Les Demande en cours</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title">
+                <div class="card">
+                    <div class="card card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="sampleTable">
+                                <thead>
+                                    <th>N°</th>
+                                    <th>Type Demande</th>
+                                    <th>Date Demande</th>
+                                    <th>Status</th>
+                                    <th>action</th>
+                                </thead>
+                                <tbody>
+                                    <?php $id = 1;?>
+                                    @foreach($demandes as $demande)
+                                        <tr>
+                                                <td>{{$id++}}</td>
+                                                <td>{{Str::upper($demande->type_demande) }}</td>
+                                                <td>{{$demande->created_at}}</td>
+                                            @if($demande->isValidated == null)
+                                                <td>En cours de traitement</td>
+                                            @else
+                                                <td>Demande traitée</td>
+                                                <td>
+                                                    <a href="#">imprimer</a>
+                                                </td>
+                                            @endif
+                                                
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-bordered table-hover" id="sampleTable">
-                <thead>
-                    <tr>
-                        <th>N°</th>
-                        <th>Type Demande</th>
-                        <th>Date Demande</th>
-                        <th>Status</th>
-                        <th>action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $id = 1;?>
-                    @foreach($demandes as $demande)
-                    <tr>
-                        <td>{{$id++}}</td>
-                        <td>{{Str::upper($demande->type_demande) }}</td>
-                        <td>{{$demande->created_at}}</td>
-                        @if($demande->isValidated == null)
-                            <td>En cours de traitement</td>
-                        @else
-                            <td>Demande traitée</td>
-                        @endif
-                        <td>
-                            <a href="#" class="btn btn-sm btn-default">Imprimer</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
     </div>
-</div>
-    
-@endsection

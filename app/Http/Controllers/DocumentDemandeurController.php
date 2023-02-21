@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use PDF;
+use App\Models\Demande;
 use App\Models\Demandeur;
 use Illuminate\Http\Request;
 use App\Models\DocumentDemandeur;
@@ -52,15 +55,33 @@ class DocumentDemandeurController extends Controller
             $document->demandeur_id = $demandeur->id;
             $document->save();
             if($document == null){
-                toastr()->success("Votre document à été ajouter avec succès ");
-                return redirect()->back();
+                return redirect()->back()->with(['success'=>'Votre document à été ajouter avec succès']);
             }else{
-                toastr()->success("Votre document à été modifier avec succès ");
-                return redirect()->back();
+                return redirect()->back()->with(['success'=>'Votre document à été modifier avec succès']);
             }
 
         }
     }
 
+
+    public function voirdocument()
+    {
+        $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
+        $demande = new Demande();
+        $users = Auth::user();
+        $demande = Demande::where('demandeur_id',$demandeur->id)->first();
+        $data = [
+            'date' => date('m/d/Y'),
+            'demande' => $demande,
+            'demandeur' => $demandeur,
+            'users'=>$users,
+        ]; 
+            
+        $pdf = PDF::loadView('documents.doc', $data);
+        return $pdf->download($demande->type_demande.'.pdf');
+        
+        
+    }
+    
 
 }
