@@ -11,11 +11,11 @@
                             </div>
                             <p>Une Entreprise Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit, incidunt?</p>
                             <ul class="social-links">
-                                <li><a href="https://www.facebook.com/waqfguinee/" target="_blank"><i class="icofont-facebook"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="icofont-facebook"></i></a></li>
                                 <li><a href="#" target="_blank"><i class="icofont-twitter"></i></a></li>
                                 <li><a href="#" target="_blank"><i class="icofont-instagram"></i></a></li>
                                 <li><a href="#" target="_blank"><i class="icofont-linkedin"></i></a></li>
-                                <li><a href="https://www.youtube.com/channel/UCoYqIU47wzh7TOdh60SwY0A" target="_blank"><i class="icofont-youtube"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="icofont-youtube"></i></a></li>
                             </ul>
                         </div>
                     </div>
