@@ -9,10 +9,13 @@
                 <p class="text-warning">Votre demande est en cours traitement </p>
             @endif
         </div>
+        @if(session()->has('error'))
+            <div class="alert alert-danger">{{session('error')}}</div>
+        @endif
     </div>
 </div>
 <div class="row">
-    <div class="col-0">
+    <div class="col-md-12">
         @if($segment == 'attestations')
             <form action="{{route('demande.attestation')}}" method="post" enctype="multipart/form-data" >
                 @csrf
@@ -40,7 +43,7 @@
             </form>
         @endif
     </div>
-    <div class="col-4">
+    <div class="col-md-12">
         @if($segment == 'laisser-passer')
             <form action="{{route('demande.laisserpasser')}}" method="post" enctype="multipart/form-data" >
                 @csrf
@@ -69,7 +72,6 @@
         @endif
     </div>
     <br>
-    <div class="row">
         <div class="col-md-12">
             <div class="title">
                 <div class="card">
@@ -95,10 +97,10 @@
                                             @else
                                                 <td>Demande traitée</td>
                                                 <td>
-                                                    <a href="#">imprimer</a>
+                                                   <a href="{{route('document.attestation.pdf')}}" class="btn btn-sm btn-default">Imprimer</a>
                                                 </td>
                                             @endif
-                                                
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -108,4 +110,5 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
+@endsection
