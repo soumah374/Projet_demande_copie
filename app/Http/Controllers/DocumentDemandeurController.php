@@ -17,20 +17,17 @@ class DocumentDemandeurController extends Controller
     public function voirdocument()
     {
         $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
-        $demande = new Demande();
-        $users = Auth::user();
         $demande = Demande::where('demandeur_id',$demandeur->id)->first();
-        $demande_type = 'attestation';
-        $demande_laisser = 'laisser passer';
+        $users = Auth::user();
         $data = [
             'date' => date('m/d/Y'),
             'demande' => $demande,
             'demandeur' => $demandeur,
             'users'=>$users,
         ];
-        if($demande->type_demande == $demande_type){
+        if($demande->type_demande == 'attestation'){
             $pdf = PDF::loadView('documents.attestation', $data);
-        }elseif($demande->type_demande == $demande_laisser){
+        }elseif($demande->type_demande == 'laisser passer'){
             $pdf = PDF::loadView('documents.laisserpasser', $data);
         }else{
             $pdf = PDF::loadView('documents.carte', $data);

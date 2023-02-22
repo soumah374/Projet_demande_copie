@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <style>
     body{
-        border:50px double black ;
+        border:40px double black ;
         margin:-10px;
         padding:-10px;
+
     }
     h1{
         text-align: center;
@@ -14,6 +15,8 @@
     .contenu{
         padding: 20px;
     }
+    @page { size: landscape; }
+    @page { margin: 0.5cm; } 
 
 </style>
 <head>
