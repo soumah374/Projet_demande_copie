@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\DocumentDemandeur;
 use App\Models\DemandeUtilisateur;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\NotificationController;
 
 class DemandeController extends Controller
@@ -58,24 +58,185 @@ class DemandeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
+        $validation = Validator::make($request->all(),[
+            'images' => 'required|max:2048',
+            'image_signature' => 'required|max:2048',
+            'nomautre'
+        ]);
+        if($validation->fails()){
+            return redirect()->back()->with(['error'=>'Les documents sont obligatoire']);
+        }else{
+            $document = new DocumentDemandeur();
+            if($request->file('images'))
+            {
+                $file=$request->file('images');
+                $uploadDestination="img/images";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImage=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->name=$originalName;
+                $document->type_document = 'photo identite';
+                $document->path = $nomImage;
+            }
+            if($request->file('image_signature'))
+            {
+                $file=$request->file('image_signature');
+                $uploadDestination="img/imageSignature";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImages=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = 'photo signature';
+                $document->path = $nomImages;
+            }
+            if($request->file('autre'))
+            {
+                $file=$request->file('autre');
+                $nomautres=$request->nomautre;
+                $uploadDestination="img/autre";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomautre=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = $nomautres;
+                $document->path = $nomautre;
+            }
+
+        $demandeurs = Demandeur::where('user_id',Auth::user()->id)->first();
         $demande = new Demande();
         $demande->type_demande = 'attestation';
-        $demande->demandeur_id = $demandeur->id;
+        $demande->demandeur_id = $demandeurs->id;
+        $document->demandeur_id = $demandeurs->id;
+        $document->save();
         $demande->save();
-        return back()->with(['success'=>'Demande effectué avec succès']);
+        return back()->with(['success'=>'Votre demande dattestation à été effectuer avec succès']);
     }
 
-    public function storepasser()
+    }
+
+    public function storepasser(Request $request)
     {
-        $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
+        $validation = Validator::make($request->all(),[
+            'images' => 'required|max:2048',
+            'image_signature' => 'required|max:2048',
+        ]);
+        if($validation->fails()){
+            return redirect()->back()->with(['error'=>'Les documents sont obligatoire']);
+        }else{
+            $document = new DocumentDemandeur();
+            if($request->file('images'))
+            {
+                $file=$request->file('images');
+                $uploadDestination="img/images";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImage=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->name=$originalName;
+                $document->type_document = 'photo identite';
+                $document->path = $nomImage;
+            }
+            if($request->file('image_signature'))
+            {
+                $file=$request->file('image_signature');
+                $uploadDestination="img/imageSignature";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImages=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = 'photo signature';
+                $document->path = $nomImages;
+            }
+            if($request->file('autre'))
+            {
+                $file=$request->file('autre');
+                $nomautres=$request->nomautre;
+                $uploadDestination="img/autre";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomautre=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = $nomautres;
+                $document->path = $nomautre;
+            }
+
+        $demandeurs = Demandeur::where('user_id',Auth::user()->id)->first();
         $demande = new Demande();
         $demande->type_demande = 'laisser passer';
-        $demande->demandeur_id = $demandeur->id;
+        $demande->demandeur_id = $demandeurs->id;
+        $document->demandeur_id = $demandeurs->id;
+        $document->save();
         $demande->save();
-        return back()->with(['success'=>'Demande effectué avec succès']);
+        return back()->with(['success'=>'Votre demande de laisser passer à été effectué avec succès']);
+    }
+
+    }
+
+    public function storecarte(Request $request)
+    {
+        $validation = Validator::make($request->all(),[
+            'images' => 'required|max:2048',
+            'image_signature' => 'required|max:2048',
+        ]);
+        if($validation->fails()){
+            return redirect()->back()->with(['error'=>'Les documents sont obligatoire']);
+        }else{
+            $document = new DocumentDemandeur();
+            if($request->file('images'))
+            {
+                $file=$request->file('images');
+                $uploadDestination="img/images";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImage=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->name=$originalName;
+                $document->type_document = 'photo identite';
+                $document->path = $nomImage;
+            }
+            if($request->file('image_signature'))
+            {
+                $file=$request->file('image_signature');
+                $uploadDestination="img/imageSignature";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomImages=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = 'photo signature';
+                $document->path = $nomImages;
+            }
+            if($request->file('autre'))
+            {
+                $file=$request->file('autre');
+                $nomautres=$request->nomautre;
+                $uploadDestination="img/autre";
+                $originalExtensions=$file->getClientOriginalExtension();
+                $originalName=time().".".$originalExtensions;
+                $nomautre=$uploadDestination."/".$originalName;
+                $file->move($uploadDestination,$originalName);
+                $document->filename=$originalName;
+                $document->type_document = $nomautres;
+                $document->path = $nomautre;
+            }
+
+        $demandeurs = Demandeur::where('user_id',Auth::user()->id)->first();
+        $demande = new Demande();
+        $demande->type_demande = 'carte';
+        $demande->demandeur_id = $demandeurs->id;
+        $document->demandeur_id = $demandeurs->id;
+        $document->save();
+        $demande->save();
+        return back()->with(['success'=>'Votre demande de carte à été effectué avec succès']);
+    }
+
     }
 
 
@@ -90,7 +251,7 @@ class DemandeController extends Controller
         public function show($id)
     {
         $demande = Demande::find($id);
-        
+
         if($demande)
         {
             $demandeur = $demande->demandeur->user->id;
@@ -105,6 +266,7 @@ class DemandeController extends Controller
         }
 
     }
+
 
     public function demandeutilisateur(){
         $segments =request()->segment(1);

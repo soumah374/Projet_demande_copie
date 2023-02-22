@@ -5,12 +5,6 @@
       <div class="card-header p-2 col-md-12">
         <ul class="nav nav-pills">
           <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Profil</a></li>
-          <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Documents</a></li>
-            @if (Auth::user()->hasRole('demandeur'))
-                @if ($document)
-                    <li class="nav-item"><a class="nav-link" href="#detail" data-toggle="tab">Detail</a></li>
-                @endif
-            @endif
         </ul>
       </div>
       <div class="card-body">
@@ -70,53 +64,6 @@
             </form>
             </div>
           </div>
-          <div class="tab-pane" id="timeline">
-            <div class="row col-md-10 center">
-                <fieldset class="h1 ">Veuillez ajouter vos documents</fieldset>
-            <br><br>
-            <form action="{{route('demande.document')}}" method="post" enctype="multipart/form-data" >
-                @csrf
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Photo*</label>
-                        <input type="file" name="images"  class="form-control  @error('images') is-invalid @enderror">
-                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
-                    </div>
-                     <div class="form-group col-md-6">
-                        <label>Photo signature*</label>
-                        <input type="file" name="image_signature"  class="form-control  @error('image_signature') is-invalid @enderror">
-                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
-                    </div>
-                    <div class="form-group col-md-12 mt-5">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                </div>
-            </form>
-            </div>
-          </div>
-           @if (Auth::user()->hasRole('demandeur'))
-                @if ($document)
-                <div class="tab-pane" id="detail">
-                    <div class="row col-md-10 center">
-                        <p class="h1 ">Vos Documents</p>
-                        <div class="row">
-                            <div class="card mr-1 col-md-5">
-                                <img src="{{asset('img/images/'.$document->name)}}" class="card-img-top" alt="...">
-                                <div class="card-body ">
-                                  <p class="card-text">Photo d'identité</p>
-                                </div>
-                              </div>
-                              <div class="card col-md-5">
-                                <img src="{{asset('img/imageSignature/'.$document->filename)}}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <p class="card-text">Photo de signature</p>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
-           @endif
         </div>
       </div>
     </div>

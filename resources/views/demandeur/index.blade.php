@@ -10,8 +10,11 @@
             @endif
         </div>
         @if(session()->has('error'))
-            <div class="alert alert-danger">{{session('error')}}</div>
+            <div id="casser" class="alert alert-danger">{{session('error')}}</div>
         @endif
+        @if(session()->has('success'))
+        <div id="casser" class="alert alert-success">{{session('success')}}</div>
+    @endif
     </div>
 </div>
 <div class="row">
@@ -33,6 +36,32 @@
                                         <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
+                                <div class="modal-body">
+                                    <div class="row col-md-10 center">
+                                        <fieldset class="h3 ">Veuillez ajouter vos documents</fieldset>
+                                    <br><br>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label>Photo*</label>
+                                                <input type="file" name="images"  class="form-control  @error('images') is-invalid @enderror">
+                                                @error('images')<span class="text text-danger">{{$message}}</span>@enderror
+                                            </div>
+                                             <div class="form-group col-md-6">
+                                                <label>Photo signature*</label>
+                                                <input type="file" name="image_signature"  class="form-control  @error('image_signature') is-invalid @enderror">
+                                                @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for=""  data-toggle="collapse" href="#IconLeftCollapseOne">Autre +</label>
+                                                <div id="IconLeftCollapseOne" class="card-body collapse ">
+                                                    <label for="">Type de fichier</label>
+                                                    <input type="text" name="nomautre" class="form-control mb-3">
+                                                    <input type="file" name="autre"  class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                     <button type="submit" class="btn btn-primary">Oui</button>
@@ -40,6 +69,60 @@
                             </div>
                         </div>
                     </div>
+            </form>
+        @endif
+    </div>
+    <div class="col-md-12">
+        @if($segment == 'carte')
+            <form action="{{route('demande.carte')}}" method="post" enctype="multipart/form-data" >
+                @csrf
+                @if(!$last_demande)
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalss" style="background-color: #1AA059; border:none">Carte</button>
+                @elseif($last_demande->isValidated !== null)
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalss" style="background-color: #1AA059; border:none">Carte</button>
+                @endif
+                <div class="modal fade" id="exampleModalss" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Vous voulez effectuer une demande de carte</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row col-md-10 center">
+                                <fieldset class="h3 ">Veuillez ajouter vos documents</fieldset>
+                            <br><br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Photo*</label>
+                                        <input type="file" name="images"  class="form-control  @error('images') is-invalid @enderror">
+                                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
+                                    </div>
+                                     <div class="form-group col-md-6">
+                                        <label>Photo signature*</label>
+                                        <input type="file" name="image_signature"  class="form-control  @error('image_signature') is-invalid @enderror">
+                                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for=""  data-toggle="collapse" href="#IconLeftCollapseOne">Autre +</label>
+                                        <div id="IconLeftCollapseOne" class="card-body collapse ">
+                                            <label for="">Type de fichier</label>
+                                            <input type="text" name="nomautre" class="form-control mb-3">
+                                            <input type="file" name="autre"  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Oui</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </form>
         @endif
     </div>
@@ -60,6 +143,32 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row col-md-10 center">
+                                <fieldset class="h3 ">Veuillez ajouter vos documents</fieldset>
+                            <br><br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Photo*</label>
+                                        <input type="file" name="images"  class="form-control  @error('images') is-invalid @enderror">
+                                        @error('images')<span class="text text-danger">{{$message}}</span>@enderror
+                                    </div>
+                                     <div class="form-group col-md-6">
+                                        <label>Photo signature*</label>
+                                        <input type="file" name="image_signature"  class="form-control  @error('image_signature') is-invalid @enderror">
+                                        @error('image_signature')<span class="text text-danger">{{$message}}</span>@enderror
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for=""  data-toggle="collapse" href="#IconLeftCollapseOne">Autre +</label>
+                                        <div id="IconLeftCollapseOne" class="card-body collapse ">
+                                            <label for="">Type de fichier</label>
+                                            <input type="text" name="nomautre" class="form-control mb-3">
+                                            <input type="file" name="autre"  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -97,7 +206,7 @@
                                             @else
                                                 <td>Demande traitée</td>
                                                 <td>
-                                                   <a href="{{route('document.attestation.pdf')}}" class="btn btn-sm btn-default">Imprimer</a>
+                                                   <a href="{{route('document.pdf')}}" class="btn btn-sm btn-default">Imprimer</a>
                                                 </td>
                                             @endif
 

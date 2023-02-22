@@ -70,7 +70,11 @@ class DemandeursController extends Controller
         }elseif($segment == "laisser-passer"){
             $demandes = Demande::where('demandeur_id',$demandeur->id)->where('type_demande','laisser passer')->get();
             $last_demande = $demandes->last();
-        }else{
+        }elseif($segment == "carte"){
+            $demandes = Demande::where('demandeur_id',$demandeur->id)->where('type_demande','carte')->get();
+            $last_demande = $demandes->last();
+        }
+        else{
             $demandes = Demande::where('demandeur_id',$demandeur->id)->get();
             $last_demande = $demandes->last();
         }

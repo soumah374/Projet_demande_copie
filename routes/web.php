@@ -36,15 +36,17 @@ Route::group(["namespace" => "front"], function(){
     Route::get('/front/propos', [FrontedController::class, 'about'])->name("front.presentation.propos");
     Route::get('/profile/laisser-passer', [DemandeursController::class,'index'])->name("profile.laisser-passer")->middleware("auth");
     Route::get('/profile/attestations', [DemandeursController::class,'index'])->name("profile.attestations")->middleware("auth");
+    Route::get('/profile/carte', [DemandeursController::class,'index'])->name("profile.carte")->middleware("auth");
     Route::get('/laisserPasser', [FrontedController::class,'laisserpasser'])->name("laisserpasser")->middleware("auth");
     Route::get('/attestation', [FrontedController::class,'attestation'])->name("attestation")->middleware("auth");
     Route::post('/completprofil', [DemandeursController::class,'store'])->name("demandeursoumis")->middleware("auth");
     Route::get('/completprofil', [DemandeursController::class,'completprofil'])->name("completprofil")->middleware("auth");
     Route::post('/demande/attestation', [DemandeController::class,'store'])->name("demande.attestation")->middleware("auth");
     Route::post('/demande/laisserpasser', [DemandeController::class,'storepasser'])->name("demande.laisserpasser")->middleware("auth");
+    Route::post('/demande/carte', [DemandeController::class,'storecarte'])->name("demande.carte")->middleware("auth");
     Route::post('/demande/document', [DocumentDemandeurController::class,'store'])->name("demande.document")->middleware("auth");
     Route::get('/demande/detail/document', [DocumentDemandeurController::class,'show'])->name("demande.detail.document")->middleware("auth");
-    Route::get('/document',[DocumentDemandeurController::class,'voirdocument'])->name("document.attestation.pdf")->middleware("auth");;
+    Route::get('/document',[DocumentDemandeurController::class,'voirdocument'])->name("document.pdf")->middleware("auth");;
 });
 
 Route::group(["namespace" => "admins"], function(){
