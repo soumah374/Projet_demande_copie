@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
-use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
+use Illuminate\Database\Seeder;
+
 class RoleSeeder extends Seeder
 {
     /**
@@ -37,6 +38,12 @@ class RoleSeeder extends Seeder
             'prenom'=>'admin',
             'password'=>bcrypt(1234),
             'statuts'=>'1'
+        ]);
+        $users=User::create([
+            'email'=>'condemohamedjean@gmail.com',
+            'name'=>'Conde',
+            'prenom'=>'Mohamed Jean',
+            'password'=>bcrypt(1234),
         ]);
         $user->attachPermission('createUser');
         $user->attachRole('admin');

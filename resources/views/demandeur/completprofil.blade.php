@@ -34,14 +34,18 @@
                         <input type="text" value="{{$demandeur ? $demandeur->nom_mere: old('nom_mere')}}" name="nom_mere" class="form-control  @error('nom_mere') is-invalid @enderror">
                         @error('nom_mere')<span class="text text-danger">{{$message}}</span>@enderror
                     </div>
-
+                    <div class="form-group col-md-6">
+                        <label>Adresse*</label>
+                        <input type="text" value="{{$demandeur ? $demandeur->adresse :  old('adresse')}}" name="adresse" class="form-control  @error('adresse') is-invalid @enderror">
+                        @error('adresse')<span class="text text-danger">{{$message}}</span>@enderror
+                    </div>
                     <div class="form-group col-md-6">
                         <label>Date de Naissance*</label>
                         <input type="date" value="{{$demandeur ? $demandeur->date_naissance : old('date_naissance')}}" name="date_naissance" class="form-control  @error('date_naissance') is-invalid @enderror">
                         @error('date_naissance')<span class="text text-danger">{{$message}}</span>@enderror
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Lieu Naissance*</label>
+                        <label>Lieu de Naissance*</label>
                         <input type="text" value="{{$demandeur ? $demandeur->lieu_naissance : old('lieu_naissance')}}" name="lieu_naissance" class="form-control  @error('lieu_naissance') is-invalid @enderror">
                         @error('lieu_naissance')<span class="text text-danger">{{$message}}</span>@enderror
                     </div>
@@ -49,6 +53,11 @@
                         <label>Telephone*</label>
                         <input type="text" value="{{$demandeur ? $demandeur->telephone :  old('telephone')}}" name="telephone" class="form-control  @error('telephone') is-invalid @enderror">
                         @error('telephone')<span class="text text-danger">{{$message}}</span>@enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Taille*</label>
+                        <input type="number" value="{{$demandeur ? $demandeur->taille :  old('telephone')}}" name="taille" max="250"  class="form-control  @error('taille') is-invalid @enderror">
+                        @error('taille')<span class="text text-danger">{{$message}}</span>@enderror
                     </div>
                     <div class="from-group col-md-6">
                         <label for="genre">Genre*</label>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <style>
     body{
-        border:40px double black ;
         margin:-10px;
         padding:-10px;
 
     }
     h1{
+        text-align: center;
+    }
+    .directeur{
         text-align: center;
     }
     .patro{
@@ -15,7 +17,9 @@
     .contenu{
         padding: 20px;
     }
-    @page { size: landscape; }
+    .general{
+        margin-top: 450px;
+    }
     @page { margin: 0.5cm; } 
 
 </style>
@@ -26,10 +30,18 @@
 <body>
    <div class="contenu">
     <h1>{{Str::upper( $demande->type_demande)}}</h1>
-        <p>Je soussigné(e) <span class="patro">{{$users->prenom}} {{$users->name}}</span>, né(e) le {{$demandeur->date_naissance}} à {{$demandeur->lieu_naissance}} ,
-        fils de {{$demandeur->nom_pere}} et de {{$demandeur->nom_mere}}
-        votre demande {{$demande->type_demande}} vous appartient</p>
-        <p> Fait le {{ $date }} à Conakry</p>
+    <h1>{{Str::upper($date)}}</h1>
+        <p>Nous Nom Entreprise </p>
+        <p><strong>NOM :</strong> {{$users->name}}</p>
+        <p><strong>PRENOM :</strong> {{$users->prenom}}</p>
+        <p><strong>DATE DE NAISSANCE :</strong> {{$demande->demandeur->date_naissance}}</p>
+        <p><strong>LIEU DE NAISSANCE :</strong> {{$demande->demandeur->lieu_naissance}}</p>
+        <br><br><br>
+        <p>En foi de quoi, nous lui délivrons la présente attestation pour servir et valoir de ce que de droit</p>
+        <p class="lieu"> Fait le {{ $date }} à Conakry</p>
+        <h1 class="general">DIRECTEUR GENERAL</h1>
+         <p class="directeur">Photo signature</p>
+         <h1 style="text-decoration: underline">NOM PRENOM DIRECTEUR</h1>
    </div>
 
 </body>

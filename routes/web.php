@@ -46,7 +46,8 @@ Route::group(["namespace" => "front"], function(){
     Route::post('/demande/carte', [DemandeController::class,'storecarte'])->name("demande.carte")->middleware("auth");
     Route::post('/demande/document', [DocumentDemandeurController::class,'store'])->name("demande.document")->middleware("auth");
     Route::get('/demande/detail/document', [DocumentDemandeurController::class,'show'])->name("demande.detail.document")->middleware("auth");
-    Route::get('/document',[DocumentDemandeurController::class,'voirdocument'])->name("document.pdf")->middleware("auth");;
+    Route::get('/document/{id}',[DocumentDemandeurController::class,'voirdocument'])->name("document.pdf")->middleware("auth");
+    Route::get('/demande/dossier/{id}',[DemandeController::class,'dossierdemande'])->name("demande.dossier")->middleware("auth");
 });
 
 Route::group(["namespace" => "admins"], function(){

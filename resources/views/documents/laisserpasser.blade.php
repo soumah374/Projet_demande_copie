@@ -1,27 +1,43 @@
 <!DOCTYPE html>
+</html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+</head>
 <style>
     body{
-        border:50px double black ;
         margin:-10px;
         padding:-10px;
     }
     h1{
         text-align: center;
     }
-    .contenu{
-        padding: 20px;
-        background-position-y: center;
+    .cadre{
+        display: grid;
     }
 
 </style>
-<head>
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
 <body>
    <div class="contenu">
     <h1>{{Str::upper( $demande->type_demande)}}</h1>
    </div>
-
+            <div class="cadre">
+                   @foreach ($pic as $pics)
+                    <img src="{{$pics}}" width="150px;" height="150px;">
+                  <br><br>
+                   @endforeach
+                <div class="info">
+                    <p><strong>NOM :</strong> {{$users->name}}</p>
+                    <p><strong>PRENOM :</strong> {{$users->prenom}}</p>
+                    <p><strong>DATE DE NAISSANCE :</strong> {{$demande->demandeur->date_naissance}}</p>
+                    <p><strong>LIEU DE NAISSANCE :</strong> {{$demande->demandeur->lieu_naissance}}</p>
+                    <p><strong>ADRESSE :</strong> {{$demande->demandeur->adresse}}</p>
+                    <p><strong>NOM PERE :</strong> {{$demande->demandeur->nom_pere}}</p>
+                    <p><strong>NOM MERE :</strong> {{$demande->demandeur->nom_mere}}</p>
+                </div>
+            </div>
 </body>
 </html>
