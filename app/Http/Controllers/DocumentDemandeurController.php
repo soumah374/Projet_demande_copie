@@ -19,29 +19,30 @@ class DocumentDemandeurController extends Controller
         $doc = DocumentDemande::where('demande_id',$id)->get();
         $demande = Demande::FindOrFail($id);
         $users = Auth::user();
+
         foreach($doc as $docs){
             $path = base_path('public/storage/'.$docs->path);
             $type = pathinfo($path,PATHINFO_EXTENSION);
             $data = file_get_contents($path);
             $pic[] = 'data:image/' . $type . ';base64,' . base64_encode($data);
         }
-        $i=2;
         $data = [
-            'date' => date('d/m/Y'),
+            'date' => date('Y'),
             'demande' => $demande,
             'users'=>$users,
             'doc'=>$doc,
+            'pic'=>$pic,
         ];
         if($demande->type_demande == 'attestation'){
             $pdf = PDF::loadView('documents.attestation', $data);
             return $pdf->download($demande->type_demande.'.pdf');
         }
         if($demande->type_demande == 'laisser passer'){
-            $pdf = PDF::loadView('documents.laisserpasser',compact('pic'), $data);
+            $pdf = PDF::loadView('documents.laisserpasser', $data);
             return $pdf->download($demande->type_demande.'.pdf');
         }
         if($demande->type_demande == 'carte'){
-            $pdf = PDF::loadView('documents.carte',compact('pic'),$data);
+            $pdf = PDF::loadView('documents.carte',$data);
             return $pdf->download($demande->type_demande.'.pdf');
         }
 

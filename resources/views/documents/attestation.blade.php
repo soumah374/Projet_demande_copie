@@ -18,9 +18,9 @@
         padding: 20px;
     }
     .general{
-        margin-top: 450px;
+        margin-top: 400px;
     }
-    @page { margin: 0.5cm; } 
+    @page { margin: 0.5cm; }
 
 </style>
 <head>
@@ -38,7 +38,7 @@
         <p><strong>LIEU DE NAISSANCE :</strong> {{$demande->demandeur->lieu_naissance}}</p>
         <br><br><br>
         <p>En foi de quoi, nous lui délivrons la présente attestation pour servir et valoir de ce que de droit</p>
-        <p class="lieu"> Fait le {{ $date }} à Conakry</p>
+        <p class="lieu"> Fait le {{ $demande->validated_at }} à Conakry</p>
         <h1 class="general">DIRECTEUR GENERAL</h1>
          <p class="directeur">Photo signature</p>
          <h1 style="text-decoration: underline">NOM PRENOM DIRECTEUR</h1>
