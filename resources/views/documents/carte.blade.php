@@ -6,7 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <style>
-       .activity-container {
+
+
+       @page {
+         size: 9.4cm 9cm;
+         margin: 5; 
+    }
+    .activity-container{
         display: flex;
         justify-content: flex-end;
       }
@@ -16,52 +22,59 @@
       }
 
       .photo {
-        width: 275px;
-        height: 250px;
+        width: 60px;
+        height: 200px;
         border-radius: 10%;
         float: left;
         margin-right: 100px;
       }
-      .logo{
-        width : auto;
-        height : 40px;
+
+      .photo img{
+        width: 80px;
+        height: 80px;
         border-radius: 1%;
-        margin-bottom : 20px;
-        background-color:rgba(9, 9, 240, 0.5);
       }
-      h1{
+
+      .photo .signature{
+        width: 90px;
+        height: 30px;
+      }
+ 
+      .contenu{
         text-align: center;
-        margin-bottom : 100px
     }
     .general{
-       margin-top : 400px;
+       margin-top : 40px;
     }
-
-       @page { margin: 0.5cm; }
+        span{
+            font-size: 8px;
+            font-style: bold;
+        }
+        p{
+            font-size: 8px;
+        }
         </style>
 </head>
 <body>
-    <div class="logo">
-      </div>
     <div class="contenu">
-        <h1>{{Str::upper( $demande->type_demande)}}</h1>
+        <h5>{{Str::upper( $demande->type_demande)}}</h5>
        </div>
    <div class="activity-container">
                      <div class="photo">
-                        @foreach ($pic as $pics)
-                        <img src="{{$pics}}" alt="ma photo" width="300;" heigth="250;"/>
-                        @endforeach
-                        <p><strong>DATE DE DELIVRANCE :</strong> {{$demande->validated_at}}</p>
-                        <p><strong>DATE D'EXPIRATION :</strong> {{date('Y-m-d', strtotime($demande->validated_at. ' + 2 years'));}}</p>
+                        <img src="{{$pic[0]}}" alt="ma photo" width="80;" heigth="80;"/>
+                        <p>Signature du titulaire</p>
+                        <img src="{{$pic[1]}}" alt="ma photo signature" width="50;" heigth="30;" class="signature"/>
+                        <p><span>DELIVRE :</span> {{$demande->validated_at}}</p>
+                        <p><span>EXPIRE :</span> {{date('Y-m-d', strtotime($demande->validated_at. ' + 2 years'));}}</p>
                     </div>
       <div class="activity-text">
-                    <p><strong>NOM :</strong> {{$users->name}}</p>
-                    <p><strong>PRENOM :</strong> {{$users->prenom}}</p>
-                    <p><strong>DATE DE NAISSANCE :</strong> {{$demande->demandeur->date_naissance}}</p>
-                    <p><strong>LIEU DE NAISSANCE :</strong> {{$demande->demandeur->lieu_naissance}}</p>
-                    <p><strong>SEXE :</strong> {{$demande->demandeur->genre}}</p>
-                    <p><strong>ADRESSE :</strong> {{$demande->demandeur->adresse}}</p>
-                    <p><strong>TAILLE :</strong> {{$demande->demandeur->taille}}</p>
+                    <p><span>NOM :</span> {{$users->name}}</p>
+                    <p><span>PRENOM :</span> {{$users->prenom}}</p>
+                    <p><span>DATE DE NAISSANCE :</span> {{$demande->demandeur->date_naissance}}</p>
+                    <p><span>LIEU DE NAISSANCE :</span> {{$demande->demandeur->lieu_naissance}}</p>
+                    <p><span>SEXE :</span> {{$demande->demandeur->genre}}</p>
+                    <p><span>ADRESSE :</span> {{$demande->demandeur->adresse}}</p>
+                    <p><span>TAILLE :</span> {{$demande->demandeur->taille}}</p>
       </div>
     </div>
     <div class="general">

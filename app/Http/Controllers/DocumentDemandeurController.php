@@ -34,7 +34,8 @@ class DocumentDemandeurController extends Controller
             'pic'=>$pic,
         ];
         if($demande->type_demande == 'attestation'){
-            $pdf = PDF::loadView('documents.attestation', $data);
+            $pdf = PDF::loadView('documents.attestation', $data)
+                ->setPaper('a4', 'portrait');
             return $pdf->download($demande->type_demande.'.pdf');
         }
         if($demande->type_demande == 'laisser passer'){
@@ -42,7 +43,8 @@ class DocumentDemandeurController extends Controller
             return $pdf->download($demande->type_demande.'.pdf');
         }
         if($demande->type_demande == 'carte'){
-            $pdf = PDF::loadView('documents.carte',$data);
+            $pdf = PDF::loadView('documents.carte',$data)
+                ->setPaper('a1', 'portrait');
             return $pdf->download($demande->type_demande.'.pdf');
         }
 
