@@ -12,7 +12,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Demandes traitées</h5>
-            <p class="card-text">{{$count_demande}}</p>
+            <p class="card-text">{{$count_demandevalide}}</p>
           </div>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Demandes validées</h5>
-            <p class="card-text">{{$count_demande}}</p>
+            <p class="card-text">{{$count_demandevalide}}</p>
           </div>
         </div>
       </div>

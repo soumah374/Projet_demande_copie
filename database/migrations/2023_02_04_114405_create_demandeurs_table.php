@@ -16,6 +16,8 @@ class CreateDemandeursTable extends Migration
         Schema::create('demandeurs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('genre')->default('');
+            $table->string('taille')->default('');
+            $table->string('adresse')->default('');
             $table->string('date_naissance')->default('');
             $table->string('lieu_naissance')->default('');
             $table->string('nom_pere')->default('');

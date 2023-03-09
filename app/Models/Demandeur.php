@@ -11,10 +11,7 @@ class Demandeur extends Model
 {
   use HasFactory;
 
-  public function documentDemandeurs()
-  {
-    return $this->hasMany(DocumentDemandeur::class);
-  }
+
 
   public function demandes()
   {

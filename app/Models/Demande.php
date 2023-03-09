@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Demandeur;
+use App\Models\DocumentDemandeur;
+use App\Models\DemandeUtilisateur;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Demande extends Model
 {
@@ -17,4 +20,13 @@ class Demande extends Model
     {
         return $this->hasMany(DemandeUtilisateur::class);
     }
+
+    public function documentdemandes()
+    {
+        return $this->hasMany(DocumentDemandeur::class);
+    }
+
+    protected $fillable = [
+        'type_demande'
+    ];
 }

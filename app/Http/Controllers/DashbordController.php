@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Demande;
 use App\Models\Demandeur;
 use App\Http\Controllers\NotificationController;
+use FFI;
 use Illuminate\Support\Facades\Auth;
 
 class DashbordController extends Controller
@@ -25,13 +26,19 @@ class DashbordController extends Controller
         $demandeur = null;
         if(Auth::user()->hasRole('admin')){
             $demandes = Demande::paginate(10);
-            return view('admin.dashbords.index', compact('count_demande','demandes'));
+            $count_demande = Demande::where('isValidated',Null)->count();
+            $count_demandevalide = Demande::where('isValidated',True)->count();
+            return view('admin.dashbords.index', compact('count_demande','demandes','count_demandevalide'));
         }
         if(Auth::user()->hasRole('demandeur')){
+            $demandeurnb = Demandeur::where('user_id',Auth::user()->id)->first();
+            $count_demande = Demande::where('demandeur_id',$demandeurnb->id)->where('isValidated',Null)->count();
+            $count_demandevalide = Demande::where('demandeur_id',$demandeurnb->id)->where('isValidated',True)->count();
             $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
             $demandes = Demande::where('demandeur_id',$demandeur->id)->get();
-            $last_demande = $demandes->last(); 
-            return view('admin.dashbords.index',compact('last_demande','demandeur','count_demande','demandes'));
+            $last_demande = $demandes->last();
+            //dd($demandes);
+            return view('admin.dashbords.index',compact('last_demande','demandeur','count_demande','demandes','count_demandevalide'));
         }
         if(Auth::user()->hasRole('utilisateur')){
             return view('admin.dashbords.index');
