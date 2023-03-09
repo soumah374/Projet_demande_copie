@@ -16,14 +16,14 @@ class CreateDemandesTable extends Migration
         Schema::create('demandes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('type_demande')->nullable()->enum('attestation','laisser passer');
+            $table->string('type_demande')->nullable()->enum('attestation','laisser passer','carte');
+            $table->string('motif_demande')->nullable();
             $table->date('validated_at')->nullable();
             $table->boolean('isValidated')->nullable();
             $table->boolean('isDismiss')->nullable();
             $table->date('dismissed_at')->nullable();
             $table->boolean('isAccepted')->nullable();
             $table->text('comment')->nullable();
-            
             $table->foreignId('demandeur_id')->constrained()->onDelete('cascade');
         });
     }

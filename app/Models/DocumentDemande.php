@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Demandeur;
 
-class DocumentDemandeur extends Model
+class DocumentDemande extends Model
 {
     use HasFactory;
 
-    public function demandeur()
+    public function demandes()
     {
-      return $this->belongsTo(Demandeur::class);
+        return $this->belongsTo(Demande::class);
     }
 }

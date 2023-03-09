@@ -13,13 +13,4 @@ class FrontedController extends Controller
         return view('Auth::editdemande', compact('edit'));
     }
 
-    public function laisserpasser(){
-        $laisserpasser = Demande::where('type_demande','laisser-passer')->get();
-        return view('Auth::laisserpasser',compact('laisserpasser'));
-    }
-
-    public function attestation(){
-        $attestation = Demande::where('type_demande','attestation')->get();
-        return view('Auth::attestation',compact('attestation'));
-    }
 }

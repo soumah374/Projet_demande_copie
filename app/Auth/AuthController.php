@@ -60,9 +60,9 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
             if (Auth::Attempt($credentials))
             {
-            return redirect()->route('dashbord.index')->with(['success'=>'Création du compte effectuée avec success']);
+                return redirect()->route('completprofil')->with(['success'=>'Création du compte effectuée avec success']);
             }else{
-                return redirect()->back();   
+                return redirect()->back();
             }
         }
     }
