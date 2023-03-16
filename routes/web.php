@@ -21,6 +21,8 @@ use App\Models\Demande;
 |
 */
 Route::get('/mail/{id}', [MailController::class, 'index'])->name('mailing');
+Route::get('/pwdconfirm/{token}', [MailController::class, 'pwdconfirm'])->name('pwdconfirmmailing');
+Route::get('/pwdoublier/{token}', [MailController::class, 'pwdoublier'])->name('pwdoubliermailing');
 
 Route::get('/tpl', function(){
     $app_name = env('APP_NAME','');
@@ -48,6 +50,8 @@ Route::group(["namespace" => "front"], function(){
     Route::get('/demande/detail/document', [DocumentDemandeurController::class,'show'])->name("demande.detail.document")->middleware("auth");
     Route::get('/document/{id}',[DocumentDemandeurController::class,'voirdocument'])->name("document.pdf")->middleware("auth");
     Route::get('/demande/dossier/{id}',[DemandeController::class,'dossierdemande'])->name("demande.dossier")->middleware("auth");
+    Route::get('/paiement/{id}', [DemandeController::class, 'paiement'])->name("paiement.form")->middleware("auth");
+
 });
 
 Route::group(["namespace" => "admins"], function(){
@@ -57,6 +61,7 @@ Route::group(["namespace" => "admins"], function(){
     Route::get('demandes/utilisateur', [DemandeController::class, 'demandeutilisateur'])->name("admins.demande.utilisateur")->middleware("auth");
     Route::get('/demande/{id}', [DemandeController::class, 'show'])->name("admins.demande.show")->middleware("auth");
     Route::put('/demandevalide/{id}', [DemandeController::class, 'update'])->name("admins.demande.update")->middleware("auth");
+    Route::put('/demanderetablie/{id}', [DemandeController::class, 'retabldemande'])->name("admins.demande.retabldemande")->middleware("auth");
     Route::put('/demanderejeter/{id}', [DemandeController::class, 'rejeterupdate'])->name("admins.demande.rejeterupdate")->middleware("auth");
     Route::put('/demandevalidation/{id}', [DemandeController::class, 'updatevalidation'])->name("admins.demande.updatevalidation")->middleware("auth");
     Route::get('/preValidation',[DemandeController::class, 'preValidation'])->name('admins.preValidation')->middleware("auth");
@@ -80,6 +85,14 @@ Route::group(["namespace" => "Auth"], function(){
     Route::post('/register',[AuthController::class,'create'])->name('register');
     Route::get('/logout',[AuthController::class,'logout'])->name('logout')->middleware("auth");
     Route::get('/adddemande',[AuthController::class,'adddemande'])->name('adddemande')->middleware("auth");
+
+    Route::get('/password/confirmation/{token}',[UtilisateurController::class, 'passwordconfirmation_get'])->name('passwordconfirmation.get');
+    Route::put('/passwordconfirmation/{token}',[AuthController::class,'passwordconfirmation_put'])->name('passwordconfirmation.put');
+
+    Route::get('/passwordoublier',[UtilisateurController::class, 'passwordoublier'])->name('passwordoublier');
+    Route::post('/passwordoubliers',[UtilisateurController::class, 'recuperationpassword'])->name('recuperationpassword');
+
+    Route::get('actualiserinscription/{id}',[UtilisateurController::class, 'actualiserinscription'])->name('actualiserinscription');
 });
 
 

@@ -74,23 +74,31 @@
                     <div class="col-md-4">
                         <p><strong class="titre_demande">Filiation de la mère :</strong> {{$demande->demandeur->nom_mere}}</p>
                     </div>
-                    @if($document)
+                    @if($doc)
                     <div class="tab-pane" id="detail">
                         <div class="row col-md-10 center">
                             <p class="h1 ">Liste des doucments</p>
                             <div class="row">
-                                <div class="card mr-1 col-md-5">
-                                    <img src="{{asset('img/images/'.$document->name)}}" class="card-img-top" alt="...">
-                                    <div class="card-body ">
-                                      <p class="card-text">Photo d'identité</p>
-                                    </div>
-                                  </div>
-                                  <div class="card col-md-5">
-                                    <img src="{{asset('img/imageSignature/'.$document->filename)}}" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                      <p class="card-text">Photo de signature</p>
-                                    </div>
-                                  </div>
+                               @foreach ($doc as $docs)
+                               @if ($docs->name=="photo")
+                               <div class="card mr-1 col-md-5">
+                                <img src="{{asset('storage/' . $docs->path)}}" class="card-img-top" alt="...">
+                               {{--  {{Storage::url($dossier->documentdemande->path)}} --}}
+                                <div class="card-body ">
+                                  <p class="card-text">Photo d'identité</p>
+                                </div>
+                              </div>
+                               @endif
+                               @if ($docs->name=="photo signature")
+                               <div class="card mr-1 col-md-5">
+                                <img src="{{asset('storage/uploads/' . $docs->filename)}}" class="card-img-top" alt="...">
+                               {{--  {{Storage::url($dossier->documentdemande->path)}} --}}
+                                <div class="card-body ">
+                                  <p class="card-text">Photo Signature</p>
+                                </div>
+                              </div>
+                               @endif
+                               @endforeach
                             </div>
                         </div>
                     </div>

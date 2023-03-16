@@ -218,6 +218,7 @@
                                 <th>Date Demande</th>
                                 <th><i class="fa fa-folder-open"></i></th>
                                 <th>Status</th>
+                                <th>Paiement</th>
                                 <th>action</th>
                             </thead>
                             <tbody>
@@ -232,8 +233,10 @@
                                     </td>
                                     @if($demande->isValidated == null)
                                         <td>En cours de traitement</td>
+                                        <td> <a href="{{route('paiement.form', $demande->id)}}" class="btn btn-sm btn-default">Payer</a></td>
                                     @else
                                         <td>Demande traitée</td>
+                                        <td></td>
                                         <td>
                                             <a href="{{route('document.pdf',$demande->id)}}" class="btn btn-sm btn-default">Imprimer</a>
                                         </td>
