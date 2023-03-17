@@ -26,14 +26,14 @@ class DashbordController extends Controller
         $demandeur = null;
         if(Auth::user()->hasRole('admin')){
             $demandes = Demande::paginate(10);
-            $count_demande = Demande::where('isValidated',Null)->count();
-            $count_demandevalide = Demande::where('isValidated',True)->count();
+            $count_demande = Demande::where('isAccepted',Null)->count();
+            $count_demandevalide = Demande::where('isAccepted',True)->count();
             return view('admin.dashbords.index', compact('count_demande','demandes','count_demandevalide'));
         }
         if(Auth::user()->hasRole('demandeur')){
             $demandeurnb = Demandeur::where('user_id',Auth::user()->id)->first();
-            $count_demande = Demande::where('demandeur_id',$demandeurnb->id)->where('isValidated',Null)->count();
-            $count_demandevalide = Demande::where('demandeur_id',$demandeurnb->id)->where('isValidated',True)->count();
+            $count_demande = Demande::where('demandeur_id',$demandeurnb->id)->where('isAccepted',Null)->count();
+            $count_demandevalide = Demande::where('demandeur_id',$demandeurnb->id)->where('isAccepted',True)->count();
             $demandeur = Demandeur::where('user_id',Auth::user()->id)->first();
             $demandes = Demande::where('demandeur_id',$demandeur->id)->get();
             $last_demande = $demandes->last();
