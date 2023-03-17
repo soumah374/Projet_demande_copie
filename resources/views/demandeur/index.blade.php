@@ -24,7 +24,7 @@
                 @csrf
                 @if (!$last_demande)
                     <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="background-color: #1AA059; border:none">Attestation</button>
-                @elseif($last_demande->isValidated !== null)
+                @elseif($last_demande->isAccepted !== null)
                     <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="background-color: #1AA059; border:none">Attestation</button>
                 @endif
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,7 +83,7 @@
                 @csrf
                 @if(!$last_demande)
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalss" style="background-color: #1AA059; border:none">Carte</button>
-                @elseif($last_demande->isValidated !== null)
+                @elseif($last_demande->isAccepted !== null)
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalss" style="background-color: #1AA059; border:none">Carte</button>
                 @endif
                 <div class="modal fade" id="exampleModalss" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,7 +138,7 @@
                 @csrf
                 @if(!$last_demande)
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="background-color: #1AA059; border:none">Laisser Passer</button>
-                @elseif($last_demande->isValidated !== null)
+                @elseif($last_demande->isAccepted !== null)
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="background-color: #1AA059; border:none">Laisser Passer</button>
                 @endif
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -208,31 +208,33 @@
                                     <th>N°</th>
                                     <th>Type Demande</th>
                                     <th>Date Demande</th>
-                                    <th>Status</th>
                                     <th><i class="fa fa-folder-open"></i></th>
+                                    <th>Status</th>
+                                    <th>Paiement</th>
                                     <th>action</th>
                                 </thead>
                                 <tbody>
                                     <?php $id = 1;?>
-                                    @foreach($demandes as $demande)
-                                        <tr>
-                                                <td>{{$id++}}</td>
-                                                <td>{{Str::upper($demande->type_demande) }}</td>
-                                                <td>{{$demande->created_at}}</td>
-                                                <td>
-                                                    <a href="{{route('demande.dossier', $demande->id)}}" class="btn btn-info btn-sm"><i class="fa fa-folder-open"></i></a>
-                                                </td>
-                                            @if($demande->isValidated == null)
-                                                <td>En cours de traitement</td>
-                                            @else
-                                                <td>Demande traitée</td>
-                                                <td>
-                                                   <a href="{{route('document.pdf'),$demande->id}}" class="btn btn-sm btn-default">Imprimer</a>
-                                                </td>
-                                            @endif
-
-                                        </tr>
-                                    @endforeach
+                                @foreach($demandes as $demande)
+                                    <tr>
+                                        <td>{{$id++}}</td>
+                                        <td>{{Str::upper($demande->type_demande) }}</td>
+                                        <td>{{$demande->created_at}}</td>
+                                        <td>
+                                            <a href="{{route('demande.dossier',$demande->id)}}" class="btn btn-info btn-sm"><i class="fa fa-folder-open"></i></a>
+                                        </td>
+                                        @if($demande->isAccepted == null)
+                                            <td>En cours de traitement</td>
+                                            <td> <a href="{{route('paiement.form', $demande->id)}}" class="btn btn-sm btn-default">Payer</a></td>
+                                        @else
+                                            <td>Demande traitée</td>
+                                            <td></td>
+                                            <td>
+                                                <a href="{{route('document.pdf',$demande->id)}}" class="btn btn-sm btn-default">Imprimer</a>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
