@@ -43,11 +43,10 @@ class DocumentDemandeurController extends Controller
             return $pdf->download($demande->type_demande.'.pdf');
         }
         if($demande->type_demande == 'carte'){
-            $pdf = PDF::loadView('documents.carte',$data);
+            $pdf = PDF::loadView('documents.carte',$data)
+                ->setPaper('a1', 'portrait');
             return $pdf->download($demande->type_demande.'.pdf');
         }
-
-        // return view('documents.carte',compact('demande','users','pic','doc'));
 
     }
 

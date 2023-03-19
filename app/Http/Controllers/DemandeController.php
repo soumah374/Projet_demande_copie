@@ -30,7 +30,7 @@ class DemandeController extends Controller
         if($segments == "traiter"){
             $demandeNotif = new NotificationController();
             $count_demande = $demandeNotif->compteDemande();
-            $demandes = Demande::whereNotNull('isValidated')->orderBy('id','DESC')->get();
+            $demandes = Demande::where('isValidated',1)->where('isAccepted',1)->orderBy('id','DESC')->get();
         }
         return view('admin.demandes.index',compact('count_demande','segments','demandes'));
 
@@ -173,9 +173,10 @@ class DemandeController extends Controller
             $demandeNotif = new NotificationController();
             $demandeadmin = DemandeUtilisateur::where("demande_id",$id)->get();
             $count_demande = 0; //$demandeNotif->compteDemande();
-            return view('admin.demandes.show',compact('demande','count_demande','document','demandeadmin'));
+            $doc = DocumentDemande::where('demande_id',$id)->get();
+            return view('admin.demandes.show',compact('demande','count_demande','document','demandeadmin','doc'));
         }else{
-            return back()->withError('Erreur!! ');
+            return back()->withError('Erreur! ');
         }
 
     }
@@ -185,7 +186,7 @@ class DemandeController extends Controller
         $segments =request()->segment(1);
         $demandeNotif=new NotificationController();
         $count_demande=$demandeNotif->compteDemande();
-        $demandeuser = DemandeUtilisateur::where('user_id', Auth::user()->id)->get();
+        $demandeuser = DemandeUtilisateur::where('user_id', Auth::user()->id)->where('action','valider')->get();
         return view('admin.demandes.demandeuser',compact('demandeuser','count_demande','segments'));
 
     }
@@ -216,6 +217,12 @@ class DemandeController extends Controller
             $demande->isAccepted = True;
             $demande->validated_at = date('Y-m-d');
             $demande->update();
+
+            $gmail = $demande->demandeur->user->email;
+            $user =$demande->demandeur->user->id;
+            //envoyer l'email a l'utilisateur
+            toastr()->success('Prevalidation éffectuée avec succèss');
+            return redirect()->route('mailing',$user);
         }else{
             $demande=Demande::FindOrFail($id);
             $demande->isValidated = True;
@@ -261,6 +268,27 @@ class DemandeController extends Controller
         toastr()->success('Prevalidation éffectuée avec succèss');
         return redirect()->route('mailing',$user);
 
+    }
+
+    public function paiement($id){
+
+        $demande=Demande::FindOrFail($id);
+        return view('paiement.form',compact('demande'));
+    }
+
+    public function retabldemande(Request $request, $id){
+        $demande=Demande::FindOrFail($id);
+        $demande->isDismiss = FALSE;
+        $demande->update();
+
+        $demandeuser =new DemandeUtilisateur();
+        $demandeuser->user_id = Auth::user()->id;
+        $demandeuser->demande_id = $demande->id;
+        $demandeuser->action = "retablir";
+        $demandeuser->save();
+
+        toastr()->success('La Demande  rejeter avec succèss');
+        return back();
     }
 
     /**

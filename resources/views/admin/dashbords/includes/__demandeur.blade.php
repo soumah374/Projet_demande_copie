@@ -3,7 +3,7 @@
     <div class="col-md-3">
         <form action="{{route('demande.attestation')}}" method="post" enctype="multipart/form-data" >
             @csrf
-            @if(!$demandes->where('type_demande','attestation')->whereNull('isValidated')->count() > 0)
+            @if(!$demandes->where('type_demande','attestation')->whereNull('isAccepted')->count() > 0)
                  <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModal" style="background-color: #1AA059; border:none">Attestation</button>
             @endif
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +61,7 @@
     <div class="col-md-3">
         <form action="{{route('demande.carte')}}" method="post" enctype="multipart/form-data" >
             @csrf
-            @if(!$demandes->where('type_demande','carte')->whereNull('isValidated')->count() > 0)
+            @if(!$demandes->where('type_demande','carte')->whereNull('isAccepted')->count() > 0)
                 <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalss" style="background-color: #1AA059; border:none">Carte</button>
             @endif
             <div class="modal fade" id="exampleModalss" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,7 +111,7 @@
     <div class="col-md-3">
         <form action="{{route('demande.laisserpasser')}}" method="post" enctype="multipart/form-data" >
             @csrf
-            @if(!$demandes->where('type_demande','laisser passer')->whereNull('isValidated')->count() > 0)
+            @if(!$demandes->where('type_demande','laisser passer')->whereNull('isAccepted')->count() > 0)
                 <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModals" style="background-color: #1AA059; border:none">Laisser Passer</button>
             @endif
             <div class="modal fade" id="exampleModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,6 +218,7 @@
                                 <th>Date Demande</th>
                                 <th><i class="fa fa-folder-open"></i></th>
                                 <th>Status</th>
+                                <th>Paiement</th>
                                 <th>action</th>
                             </thead>
                             <tbody>
@@ -230,10 +231,12 @@
                                     <td>
                                         <a href="{{route('demande.dossier',$demande->id)}}" class="btn btn-info btn-sm"><i class="fa fa-folder-open"></i></a>
                                     </td>
-                                    @if($demande->isValidated == null)
+                                    @if($demande->isAccepted == null)
                                         <td>En cours de traitement</td>
+                                        <td> <a href="{{route('paiement.form', $demande->id)}}" class="btn btn-sm btn-default">Payer</a></td>
                                     @else
                                         <td>Demande traitée</td>
+                                        <td></td>
                                         <td>
                                             <a href="{{route('document.pdf',$demande->id)}}" class="btn btn-sm btn-default">Imprimer</a>
                                         </td>
